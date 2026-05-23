@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aljabar - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --bg: #ffffff;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.11),
+            transparent 26%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #ffffff 35%, #f8fafc 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1040px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero {
+        padding: 30px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.1rem, 4vw, 3.8rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+
+      .lead,
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+
+      .steps {
+        display: grid;
+        gap: 12px;
+      }
+
+      .step {
+        display: flex;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--green), #16a34a);
+      }
+
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+
+      .lesson-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .lesson-item {
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: #fff;
+      }
+
+      .lesson-item strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.05rem;
+      }
+
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .exercise {
+        padding: 18px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      }
+
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(34, 197, 94, 0.06);
+        border: 1px solid rgba(34, 197, 94, 0.15);
+      }
+
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: #15803d;
+      }
+
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--blue);
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+      }
+
+      @media (max-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 2 · Aljabar</div>
+        <h1>
+          Aljabar membantu kita menulis pola hitung dengan huruf agar lebih
+          singkat dan rapi.
+        </h1>
+        <p class="lead">
+          Di modul ini kita belajar variabel, bentuk aljabar, dan cara membaca
+          persamaan dengan cara yang masuk akal. Tujuannya supaya anak SMP tidak
+          hanya hafal rumus, tetapi paham ide di baliknya.
+        </p>
+
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>
+                  Kenali variabel sebagai lambang bilangan yang belum diketahui.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>Lihat operasi yang menghubungkan bagian-bagian aljabar.</p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>Sederhanakan bentuknya sambil menjaga nilai yang sama.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Yang dipelajari</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">x</div>
+                <p>Variabel dan maknanya.</p>
+              </div>
+              <div class="step">
+                <div class="num">+</div>
+                <p>Menjumlahkan suku sejenis.</p>
+              </div>
+              <div class="step">
+                <div class="num">=</div>
+                <p>Membaca dan membangun persamaan sederhana.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Contoh singkat</h2>
+        <div class="lesson-list">
+          <div class="lesson-item">
+            <strong>Contoh 1: 2x + 3x</strong>
+            <p>
+              Karena sama-sama suku x, kita jumlahkan koefisiennya: 2 + 3 = 5,
+              jadi hasilnya 5x.
+            </p>
+          </div>
+          <div class="lesson-item">
+            <strong>Contoh 2: Jika x = 4, maka 3x + 2</strong>
+            <p>Ganti x dengan 4: 3(4) + 2 = 12 + 2 = 14.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Sederhanakan 4x + 2x.</h3>
+            <p>Petunjuk: jumlahkan koefisiennya.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">4x + 2x = 6x.</div>
+            </details>
+          </article>
+
+          <article class="exercise">
+            <h3>2. Jika x = 5, hitung 2x + 7.</h3>
+            <p>Petunjuk: ganti x dengan 5.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">2(5) + 7 = 10 + 7 = 17.</div>
+            </details>
+          </article>
+
+          <article class="exercise">
+            <h3>3. Sederhanakan 7a - 3a.</h3>
+            <p>Petunjuk: kurangi koefisien suku sejenis.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">7a - 3a = 4a.</div>
+            </details>
+          </article>
+
+          <article class="exercise">
+            <h3>4. Jika p = 3, hitung p + p + p.</h3>
+            <p>Petunjuk: itu sama dengan 3p.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">p + p + p = 3p = 3(3) = 9.</div>
+            </details>
+          </article>
+
+          <article class="exercise">
+            <h3>
+              5. Toni punya 4 kantong, tiap kantong berisi x kelereng. Tuliskan
+              bentuk aljabarnya.
+            </h3>
+            <p>
+              Petunjuk: gunakan perkalian antara banyak kantong dan isi setiap
+              kantong.
+            </p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">Bentuk aljabarnya adalah 4x.</div>
+            </details>
+          </article>
+        </div>
+
+        <div class="note">
+          Kunci aljabar adalah melihat pola. Huruf bukan membuat bingung, tetapi
+          memudahkan kita menulis angka yang belum diketahui.
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

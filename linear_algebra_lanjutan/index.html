@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linear Algebra Lanjutan - Belajar Math Visual</title>
+    <style>
+      :root{--blue:#2563eb;--green:#22c55e;--amber:#f59e0b;--text:#0f172a;--muted:#334155;--border:#e2e8f0;--soft:#f8fafc;--shadow:0 18px 40px rgba(15,23,42,.08)}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(37,99,235,.12),transparent 28%),radial-gradient(circle at top right,rgba(34,197,94,.12),transparent 24%),linear-gradient(180deg,#f8fbff 0%,#fff 36%,#f8fafc 100%);min-height:100vh}a{color:inherit;text-decoration:none}.page{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:28px 0 56px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.back{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 10px 24px rgba(15,23,42,.05)}.hero,.section{border:1px solid var(--border);border-radius:28px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);backdrop-filter:blur(12px)}.hero{padding:30px}.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(37,99,235,.08);color:var(--muted);font-weight:700}.eyebrow span{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--blue),var(--green))}h1{margin:14px 0 12px;font-size:clamp(2.2rem,4vw,3.9rem);line-height:1.05;letter-spacing:-.04em}p{color:var(--muted);line-height:1.7;margin:0}.lead{max-width:80ch}.grid{display:grid;grid-template-columns:1fr .98fr;gap:18px;margin-top:22px}.panel{padding:20px;border-radius:22px;border:1px solid var(--border);background:var(--soft)}.panel h2,.section h2{margin:0 0 12px;font-size:1.35rem}.steps,.formulas{display:grid;gap:12px}.step,.formula-card,.exercise{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--border)}.step{display:flex;gap:12px;align-items:start}.num{width:34px;height:34px;flex:0 0 auto;display:grid;place-items:center;border-radius:12px;color:#fff;font-weight:700;background:linear-gradient(135deg,var(--blue),#1d4ed8)}.formula-card strong{display:block;margin-bottom:8px}.section{margin-top:22px;padding:28px}.lab{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;margin-top:18px}.lab-visual,.lab-controls{border-radius:24px;border:1px solid var(--border);background:#fff}.lab-visual{padding:18px}.lab-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.1);color:#166534;font-size:.85rem;font-weight:700}.scene{width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#eff6ff 0%,#fff 54%,#f8fafc 100%);border:1px solid rgba(226,232,240,.9)}.lab-controls{padding:18px}.control{margin-bottom:14px}.control label{display:flex;justify-content:space-between;gap:12px;font-weight:700;color:var(--text);margin-bottom:8px}input[type="range"]{width:100%}.result{margin-top:16px;padding:14px;border-radius:18px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.14)}.result strong{display:block;margin-bottom:4px}.exercise-grid{display:grid;gap:14px;margin-top:18px}.exercise h3{margin:0 0 10px;font-size:1.06rem}details{margin-top:12px;padding:12px 14px;border-radius:16px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15)}summary{cursor:pointer;font-weight:700;color:var(--blue)}.answer{margin-top:10px;color:var(--muted)}.note{margin-top:18px;padding:14px 16px;border-radius:18px;border-left:5px solid var(--green);background:rgba(34,197,94,.08);color:var(--muted)}.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.pill{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.84rem}.table{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.cell{padding:10px;border-radius:14px;border:1px solid var(--border);background:#fff;text-align:center}.cell strong{display:block;margin-bottom:4px}@media (max-width:920px){.grid,.lab{grid-template-columns:1fr}.table{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:640px){.page{width:min(100% - 20px,1120px);padding-top:18px}.hero,.section{padding:22px;border-radius:24px}}
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar"><a class="back" href="../index.html">← Kembali ke halaman utama</a></div>
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 19 · Linear Algebra Lanjutan</div>
+        <h1>Kombinasi linear membantu kita memahami bagaimana vektor bisa membentuk arah baru.</h1>
+        <p class="lead">Modul ini memperluas ide vektor dan matriks dengan cara sederhana: dua arah dasar dapat digabung untuk membuat banyak posisi lain. Itu inti dari basis dan kombinasi linear.</p>
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step"><div class="num">1</div><p>Pilih dua vektor dasar yang menjadi arah utama.</p></div>
+              <div class="step"><div class="num">2</div><p>Kalikan masing-masing vektor dengan skala tertentu.</p></div>
+              <div class="step"><div class="num">3</div><p>Jumlahkan hasilnya untuk mendapatkan vektor baru.</p></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card"><strong>Kombinasi linear</strong><p>w = a u + b v</p></div>
+              <div class="formula-card"><strong>Makna</strong><p>Dua vektor dasar bisa membentuk banyak titik lain.</p></div>
+              <div class="formula-card"><strong>Contoh</strong><p>Kalau u dan v saling bebas, ruang geraknya lebih luas.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Simulasi interaktif: kombinasi dua vektor</h2>
+        <p>Geser koefisien a dan b untuk melihat hasil penjumlahan vektor berubah.</p>
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title"><strong>Vektor dasar</strong><span class="badge">Basis sederhana</span></div>
+            <svg class="scene" viewBox="0 0 820 460" role="img" aria-label="Simulasi linear algebra lanjutan">
+              <defs><marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb" /></marker><marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#22c55e" /></marker><marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#f59e0b" /></marker></defs>
+              <rect width="820" height="460" fill="#fff"/>
+              <g stroke="#cbd5e1" stroke-width="1"><line x1="410" y1="20" x2="410" y2="440"/><line x1="20" y1="230" x2="800" y2="230"/><line x1="290" y1="20" x2="290" y2="440" opacity=".35"/><line x1="530" y1="20" x2="530" y2="440" opacity=".35"/></g>
+              <g stroke="#94a3b8" stroke-width="2"><line x1="410" y1="230" x2="790" y2="230"/><line x1="410" y1="230" x2="410" y2="30"/></g>
+              <line id="uVec" x1="410" y1="230" x2="0" y2="0" stroke="#2563eb" stroke-width="6" marker-end="url(#arrowBlue)"/>
+              <line id="vVec" x1="410" y1="230" x2="0" y2="0" stroke="#22c55e" stroke-width="6" marker-end="url(#arrowGreen)"/>
+              <line id="wVec" x1="410" y1="230" x2="0" y2="0" stroke="#f59e0b" stroke-width="7" marker-end="url(#arrowAmber)"/>
+              <circle id="end" cx="0" cy="0" r="7" fill="#f59e0b"/>
+              <text id="label" x="0" y="0" fill="#92400e" font-size="16" font-weight="700"></text>
+            </svg>
+            <div class="table" id="table"></div>
+          </div>
+          <div class="lab-controls">
+            <div class="control"><label for="a">Koefisien a <span id="aOut">1.0</span></label><input id="a" type="range" min="-2" max="3" step="0.1" value="1" /></div>
+            <div class="control"><label for="b">Koefisien b <span id="bOut">1.0</span></label><input id="b" type="range" min="-2" max="3" step="0.1" value="1" /></div>
+            <div class="result"><strong>Hasil kombinasi</strong><div id="resultText">w = (4.0, 2.0)</div></div>
+            <div class="status"><span class="pill">u = (2, 1)</span><span class="pill">v = (1, 2)</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><p>Dalam grafis, arah dasar dipakai untuk membuat bentuk dan transformasi baru.</p></div>
+          <div class="step"><div class="num">2</div><p>Di navigasi, beberapa langkah dasar bisa digabung untuk mencapai lokasi lain.</p></div>
+          <div class="step"><div class="num">3</div><p>Linear algebra lanjutan membantu kita mengatur banyak hubungan sekaligus.</p></div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise"><h3>1. Apa itu kombinasi linear?</h3><p>Petunjuk: menjumlahkan vektor yang sudah dikali skala.</p><details><summary>Lihat jawaban</summary><div class="answer">Kombinasi linear adalah penjumlahan beberapa vektor yang masing-masing dikalikan koefisien.</div></details></article>
+          <article class="exercise"><h3>2. Mengapa basis penting?</h3><p>Petunjuk: arah dasar.</p><details><summary>Lihat jawaban</summary><div class="answer">Basis penting karena menjadi arah dasar untuk membentuk vektor lain dalam ruang.</div></details></article>
+        </div>
+        <div class="note">Kunci topik ini adalah melihat bahwa beberapa arah dasar bisa membentuk banyak kemungkinan lain.</div>
+      </section>
+    </main>
+    <script>
+      const aInput=document.getElementById('a');const bInput=document.getElementById('b');const aOut=document.getElementById('aOut');const bOut=document.getElementById('bOut');const resultText=document.getElementById('resultText');const uVec=document.getElementById('uVec');const vVec=document.getElementById('vVec');const wVec=document.getElementById('wVec');const end=document.getElementById('end');const label=document.getElementById('label');const table=document.getElementById('table');const originX=410,originY=230,scale=45;const u={x:2,y:1};const v={x:1,y:2};function p(x,y){return{ x:originX+x*scale,y:originY-y*scale}}function draw(){const a=Number(aInput.value),b=Number(bInput.value);const w={x:a*u.x+b*v.x,y:a*u.y+b*v.y};aOut.textContent=a.toFixed(1);bOut.textContent=b.toFixed(1);const up=p(u.x,u.y),vp=p(v.x,v.y),wp=p(w.x,w.y);uVec.setAttribute('x2',up.x);uVec.setAttribute('y2',up.y);vVec.setAttribute('x2',vp.x);vVec.setAttribute('y2',vp.y);wVec.setAttribute('x2',wp.x);wVec.setAttribute('y2',wp.y);end.setAttribute('cx',wp.x);end.setAttribute('cy',wp.y);label.setAttribute('x',wp.x+8);label.setAttribute('y',wp.y-8);label.textContent=`w = (${w.x.toFixed(1)}, ${w.y.toFixed(1)})`;resultText.textContent=`w = (${w.x.toFixed(1)}, ${w.y.toFixed(1)})`;table.innerHTML=[{name:'a·u',value:`(${(a*u.x).toFixed(1)}, ${(a*u.y).toFixed(1)})`},{name:'b·v',value:`(${(b*v.x).toFixed(1)}, ${(b*v.y).toFixed(1)})`},{name:'w',value:`(${w.x.toFixed(1)}, ${w.y.toFixed(1)})`}].map(item=>`<div class="cell"><strong>${item.name}</strong><div>${item.value}</div></div>`).join('');}
+      aInput.addEventListener('input',draw);bInput.addEventListener('input',draw);draw();
+    </script>
+  </body>
+</html>

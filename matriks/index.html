@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matriks - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #ffffff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 78ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        display: block;
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #eff6ff 0%, #fff 50%, #f8fafc 100%);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .matrix-display {
+        display: inline-grid;
+        grid-template-columns: auto auto;
+        gap: 8px 10px;
+        align-items: center;
+        padding: 8px 12px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+      }
+      .matrix-display span {
+        display: block;
+        min-width: 34px;
+        text-align: center;
+        padding: 6px 8px;
+        border-radius: 10px;
+        background: rgba(37, 99, 235, 0.06);
+        font-weight: 700;
+      }
+      .mini-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .mini-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 6 · Matriks</div>
+        <h1>
+          Matriks adalah cara rapi menata angka untuk melakukan transformasi.
+        </h1>
+        <p class="lead">
+          Di sini matriks dipakai untuk mengubah titik pada bidang koordinat.
+          Anak SMP bisa melihat bahwa tabel angka bukan sekadar kumpulan angka,
+          tetapi alat untuk memindahkan, membesar-kecilkan, atau memutar bentuk
+          secara terstruktur.
+        </p>
+
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>
+                  Lihat matriks sebagai aturan yang menerima satu titik lalu
+                  menghasilkan titik baru.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>
+                  Kalikan baris dan kolom untuk mendapatkan koordinat baru
+                  secara teratur.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>
+                  Cek hasil transformasi pada grafik agar masuk akal secara
+                  visual.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Transformasi titik</strong>
+                <p>x' = ax + by</p>
+                <p>y' = cx + dy</p>
+              </div>
+              <div class="formula-card">
+                <strong>Bentuk matriks</strong>
+                <p>[[a, b], [c, d]]</p>
+              </div>
+              <div class="formula-card">
+                <strong>Ide utamanya</strong>
+                <p>
+                  Matriks memberi aturan perubahan yang konsisten pada titik
+                  atau gambar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Simulasi interaktif: transformasi titik</h2>
+        <p>
+          Geser nilai matriks dan titik awal untuk melihat titik hasil
+          transformasi bergerak otomatis.
+        </p>
+
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Bidang transformasi</strong
+              ><span class="badge">Matriks 2×2</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Simulasi transformasi matriks"
+            >
+              <defs>
+                <marker
+                  id="arrowBlue"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#2563eb" />
+                </marker>
+                <marker
+                  id="arrowGreen"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#22c55e" />
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="820" height="460" fill="#fff" />
+              <g stroke="#cbd5e1" stroke-width="1">
+                <line x1="410" y1="20" x2="410" y2="440" />
+                <line x1="20" y1="230" x2="800" y2="230" />
+                <line x1="290" y1="20" x2="290" y2="440" opacity="0.35" />
+                <line x1="530" y1="20" x2="530" y2="440" opacity="0.35" />
+                <line x1="20" y1="110" x2="800" y2="110" opacity="0.35" />
+                <line x1="20" y1="350" x2="800" y2="350" opacity="0.35" />
+              </g>
+              <g stroke="#94a3b8" stroke-width="2">
+                <line x1="410" y1="230" x2="790" y2="230" />
+                <line x1="410" y1="230" x2="410" y2="30" />
+              </g>
+              <g font-size="16" fill="#475569" font-weight="700">
+                <text x="780" y="220">x</text>
+                <text x="420" y="45">y</text>
+                <text x="420" y="248">O</text>
+              </g>
+              <path
+                id="origVec"
+                d=""
+                stroke="#2563eb"
+                stroke-width="6"
+                fill="none"
+                marker-end="url(#arrowBlue)"
+              />
+              <path
+                id="transVec"
+                d=""
+                stroke="#22c55e"
+                stroke-width="6"
+                fill="none"
+                marker-end="url(#arrowGreen)"
+              />
+              <circle id="origDot" cx="0" cy="0" r="7" fill="#2563eb" />
+              <circle id="transDot" cx="0" cy="0" r="7" fill="#22c55e" />
+              <text
+                id="origLabel"
+                x="0"
+                y="0"
+                fill="#2563eb"
+                font-size="16"
+                font-weight="700"
+              ></text>
+              <text
+                id="transLabel"
+                x="0"
+                y="0"
+                fill="#166534"
+                font-size="16"
+                font-weight="700"
+              ></text>
+            </svg>
+            <p style="margin-top: 12px">
+              Biru = titik awal, hijau = titik hasil transformasi.
+            </p>
+          </div>
+
+          <div class="lab-controls">
+            <div class="control">
+              <label for="a">a <span id="aOut">1</span></label
+              ><input
+                id="a"
+                type="range"
+                min="-2"
+                max="2"
+                step="0.1"
+                value="1"
+              />
+            </div>
+            <div class="control">
+              <label for="b">b <span id="bOut">0</span></label
+              ><input
+                id="b"
+                type="range"
+                min="-2"
+                max="2"
+                step="0.1"
+                value="0"
+              />
+            </div>
+            <div class="control">
+              <label for="c">c <span id="cOut">0</span></label
+              ><input
+                id="c"
+                type="range"
+                min="-2"
+                max="2"
+                step="0.1"
+                value="0"
+              />
+            </div>
+            <div class="control">
+              <label for="d">d <span id="dOut">1</span></label
+              ><input
+                id="d"
+                type="range"
+                min="-2"
+                max="2"
+                step="0.1"
+                value="1"
+              />
+            </div>
+            <div class="control">
+              <label for="px">x titik <span id="pxOut">3</span></label
+              ><input
+                id="px"
+                type="range"
+                min="-5"
+                max="5"
+                step="1"
+                value="3"
+              />
+            </div>
+            <div class="control">
+              <label for="py">y titik <span id="pyOut">2</span></label
+              ><input
+                id="py"
+                type="range"
+                min="-5"
+                max="5"
+                step="1"
+                value="2"
+              />
+            </div>
+            <div class="result">
+              <strong>Hasil transformasi</strong>
+              <div id="resultText">
+                Titik (3, 2) berubah menjadi (3.0, 2.0).
+              </div>
+            </div>
+            <div class="mini-grid">
+              <span class="mini-pill" id="matrixBox"></span
+              ><span class="mini-pill" id="pointBox"></span
+              ><span class="mini-pill" id="outputBox"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Desainer grafis memakai matriks untuk mengubah ukuran atau memutar
+              objek di layar.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Dalam peta digital, matriks membantu menggeser koordinat agar
+              gambar tetap rapi saat diperbesar.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>
+              Di game, matriks dipakai agar karakter dan objek bisa bergerak
+              dengan aturan yang konsisten.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa fungsi matriks dalam modul ini?</h3>
+            <p>Petunjuk: matriks dipakai untuk mengubah titik.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Matriks dipakai sebagai aturan untuk mentransformasi titik atau
+                bentuk.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>
+              2. Jika [[1, 0], [0, 1]] diterapkan pada titik (4, 5), apa
+              hasilnya?
+            </h3>
+            <p>Petunjuk: ini matriks identitas.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">Hasilnya tetap (4, 5).</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>
+              3. Jika a = 2, b = 0, c = 0, d = 2 pada titik (3, 1), apa
+              hasilnya?
+            </h3>
+            <p>Petunjuk: ini skala dua kali.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">Hasilnya (6, 2).</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>4. Mengapa matriks berguna di grafika komputer?</h3>
+            <p>Petunjuk: karena banyak perubahan bisa ditulis dengan rapi.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Karena matriks membuat transformasi seperti geser, skala, dan
+                putar lebih mudah dihitung dan diulang.
+              </div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci matriks adalah melihatnya sebagai mesin perubahan yang bekerja
+          pada titik atau bentuk.
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const inputs = {
+        a: document.getElementById("a"),
+        b: document.getElementById("b"),
+        c: document.getElementById("c"),
+        d: document.getElementById("d"),
+        px: document.getElementById("px"),
+        py: document.getElementById("py"),
+      };
+      const outs = {
+        a: document.getElementById("aOut"),
+        b: document.getElementById("bOut"),
+        c: document.getElementById("cOut"),
+        d: document.getElementById("dOut"),
+        px: document.getElementById("pxOut"),
+        py: document.getElementById("pyOut"),
+      };
+      const origVec = document.getElementById("origVec");
+      const transVec = document.getElementById("transVec");
+      const origDot = document.getElementById("origDot");
+      const transDot = document.getElementById("transDot");
+      const origLabel = document.getElementById("origLabel");
+      const transLabel = document.getElementById("transLabel");
+      const resultText = document.getElementById("resultText");
+      const matrixBox = document.getElementById("matrixBox");
+      const pointBox = document.getElementById("pointBox");
+      const outputBox = document.getElementById("outputBox");
+      const centerX = 410;
+      const centerY = 230;
+      const scale = 24;
+      function point(x, y) {
+        return { x: centerX + x * scale, y: centerY - y * scale };
+      }
+      function update() {
+        const a = Number(inputs.a.value),
+          b = Number(inputs.b.value),
+          c = Number(inputs.c.value),
+          d = Number(inputs.d.value),
+          px = Number(inputs.px.value),
+          py = Number(inputs.py.value);
+        const x2 = a * px + b * py;
+        const y2 = c * px + d * py;
+        const p1 = point(px, py);
+        const p2 = point(x2, y2);
+        origVec.setAttribute("d", `M ${centerX} ${centerY} L ${p1.x} ${p1.y}`);
+        transVec.setAttribute("d", `M ${centerX} ${centerY} L ${p2.x} ${p2.y}`);
+        origDot.setAttribute("cx", p1.x);
+        origDot.setAttribute("cy", p1.y);
+        transDot.setAttribute("cx", p2.x);
+        transDot.setAttribute("cy", p2.y);
+        origLabel.setAttribute("x", (p1.x + 8).toFixed(1));
+        origLabel.setAttribute("y", (p1.y - 8).toFixed(1));
+        origLabel.textContent = `P (${px}, ${py})`;
+        transLabel.setAttribute("x", (p2.x + 8).toFixed(1));
+        transLabel.setAttribute("y", (p2.y - 8).toFixed(1));
+        transLabel.textContent = `P' (${x2.toFixed(1)}, ${y2.toFixed(1)})`;
+        outs.a.textContent = a.toFixed(1);
+        outs.b.textContent = b.toFixed(1);
+        outs.c.textContent = c.toFixed(1);
+        outs.d.textContent = d.toFixed(1);
+        outs.px.textContent = px;
+        outs.py.textContent = py;
+        resultText.textContent = `Titik (${px}, ${py}) berubah menjadi (${x2.toFixed(1)}, ${y2.toFixed(1)}).`;
+        matrixBox.textContent = `[[${a.toFixed(1)}, ${b.toFixed(1)}], [${c.toFixed(1)}, ${d.toFixed(1)}]]`;
+        pointBox.textContent = `Titik awal (${px}, ${py})`;
+        outputBox.textContent = `Hasil (${x2.toFixed(1)}, ${y2.toFixed(1)})`;
+      }
+      Object.values(inputs).forEach((input) =>
+        input.addEventListener("input", update),
+      );
+      update();
+    </script>
+  </body>
+</html>

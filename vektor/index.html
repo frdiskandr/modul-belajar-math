@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vektor - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #ffffff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 76ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.96fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        display: block;
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          #dbeafe 0%,
+          #eff6ff 52%,
+          #dcfce7 52%,
+          #bbf7d0 100%
+        );
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .key {
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 5 · Vektor</div>
+        <h1>Vektor menjelaskan gerak yang punya besar dan arah sekaligus.</h1>
+        <p class="lead">
+          Kalau bilangan biasa hanya bilang "berapa banyak", vektor juga bilang
+          "ke mana arahnya". Itu sebabnya vektor dipakai untuk perpindahan,
+          kecepatan, gaya, navigasi robot, dan peta.
+        </p>
+
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>
+                  Pahami bahwa vektor punya komponen horizontal dan vertikal.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>
+                  Jumlahkan vektor komponen per komponen supaya hasil akhirnya
+                  jelas.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>
+                  Lihat panjang dan arah hasilnya untuk membaca arti fisiknya.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Panjang vektor</strong>
+                <p>|v| = √(x² + y²)</p>
+              </div>
+              <div class="formula-card">
+                <strong>Penjumlahan</strong>
+                <p>(a, b) + (c, d) = (a + c, b + d)</p>
+              </div>
+              <div class="formula-card">
+                <strong>Arah</strong>
+                <p>θ = atan2(y, x)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Simulasi interaktif: dua vektor dan resultannya</h2>
+        <p>
+          Geser komponen vektor A dan B untuk melihat vektor resultan di bidang
+          koordinat.
+        </p>
+
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Bidang koordinat</strong
+              ><span class="badge">Penjumlahan vektor</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Simulasi penjumlahan vektor"
+            >
+              <defs>
+                <marker
+                  id="arrowBlue"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#2563eb" />
+                </marker>
+                <marker
+                  id="arrowGreen"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#22c55e" />
+                </marker>
+                <marker
+                  id="arrowAmber"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#f59e0b" />
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="820" height="460" fill="#fff" />
+              <g stroke="#cbd5e1" stroke-width="1">
+                <line x1="410" y1="20" x2="410" y2="440" />
+                <line x1="20" y1="230" x2="800" y2="230" />
+                <line x1="290" y1="20" x2="290" y2="440" opacity="0.35" />
+                <line x1="530" y1="20" x2="530" y2="440" opacity="0.35" />
+                <line x1="20" y1="110" x2="800" y2="110" opacity="0.35" />
+                <line x1="20" y1="350" x2="800" y2="350" opacity="0.35" />
+              </g>
+              <g stroke="#94a3b8" stroke-width="2">
+                <line x1="410" y1="230" x2="790" y2="230" />
+                <line x1="410" y1="230" x2="410" y2="30" />
+              </g>
+              <g font-size="16" fill="#475569" font-weight="700">
+                <text x="780" y="220">x</text>
+                <text x="420" y="45">y</text>
+                <text x="420" y="248">O</text>
+              </g>
+              <path
+                id="vectorA"
+                d=""
+                stroke="#2563eb"
+                stroke-width="6"
+                fill="none"
+                marker-end="url(#arrowBlue)"
+              />
+              <path
+                id="vectorB"
+                d=""
+                stroke="#22c55e"
+                stroke-width="6"
+                fill="none"
+                marker-end="url(#arrowGreen)"
+              />
+              <path
+                id="vectorR"
+                d=""
+                stroke="#f59e0b"
+                stroke-width="7"
+                fill="none"
+                marker-end="url(#arrowAmber)"
+              />
+              <text
+                id="labelA"
+                x="0"
+                y="0"
+                fill="#2563eb"
+                font-size="16"
+                font-weight="700"
+              ></text>
+              <text
+                id="labelB"
+                x="0"
+                y="0"
+                fill="#166534"
+                font-size="16"
+                font-weight="700"
+              ></text>
+              <text
+                id="labelR"
+                x="0"
+                y="0"
+                fill="#c2410c"
+                font-size="16"
+                font-weight="700"
+              ></text>
+            </svg>
+            <p style="margin-top: 12px">
+              Biru = vektor A, hijau = vektor B, oranye = resultan.
+            </p>
+          </div>
+
+          <div class="lab-controls">
+            <div class="control">
+              <label for="ax">Ax <span id="axOut">4</span></label
+              ><input
+                id="ax"
+                type="range"
+                min="-8"
+                max="8"
+                step="1"
+                value="4"
+              />
+            </div>
+            <div class="control">
+              <label for="ay">Ay <span id="ayOut">3</span></label
+              ><input
+                id="ay"
+                type="range"
+                min="-8"
+                max="8"
+                step="1"
+                value="3"
+              />
+            </div>
+            <div class="control">
+              <label for="bx">Bx <span id="bxOut">-2</span></label
+              ><input
+                id="bx"
+                type="range"
+                min="-8"
+                max="8"
+                step="1"
+                value="-2"
+              />
+            </div>
+            <div class="control">
+              <label for="by">By <span id="byOut">5</span></label
+              ><input
+                id="by"
+                type="range"
+                min="-8"
+                max="8"
+                step="1"
+                value="5"
+              />
+            </div>
+            <div class="result">
+              <strong>Hasil vektor</strong>
+              <div id="resultText">
+                R = (2, 8) dengan panjang 8.2 dan arah 76°.
+              </div>
+            </div>
+            <div class="key">
+              <span class="pill">komponen per komponen</span
+              ><span class="pill">panjang</span><span class="pill">arah</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Sebuah robot bergerak 4 langkah ke timur dan 3 langkah ke utara.
+              Itu sama dengan vektor (4, 3).
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Kalau ada angin mendorong robot 2 langkah ke barat dan 5 langkah
+              ke utara, vektornya menjadi (-2, 5).
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>
+              Perpindahan total robot adalah (4, 3) + (-2, 5) = (2, 8), jadi
+              arah akhirnya dominan ke atas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa bedanya skalar dan vektor?</h3>
+            <p>Petunjuk: satu hanya besar, satu punya besar dan arah.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Skalar hanya punya besar, sedangkan vektor punya besar dan arah.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Jika A = (3, 2) dan B = (1, 4), berapa A + B?</h3>
+            <p>Petunjuk: jumlahkan x dengan x, y dengan y.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">A + B = (4, 6).</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>3. Hitung panjang vektor (6, 8).</h3>
+            <p>Petunjuk: pakai rumus √(x² + y²).</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">|v| = √(36 + 64) = √100 = 10.</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>4. Mengapa vektor berguna pada navigasi?</h3>
+            <p>Petunjuk: karena arah perjalanan penting.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Karena navigasi perlu tahu seberapa jauh dan ke mana bergerak,
+                bukan hanya berapa besar geraknya.
+              </div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci vektor adalah membayangkan panah: panjangnya menunjukkan besar,
+          arah panahnya menunjukkan ke mana.
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const inputs = {
+        ax: document.getElementById("ax"),
+        ay: document.getElementById("ay"),
+        bx: document.getElementById("bx"),
+        by: document.getElementById("by"),
+      };
+      const outs = {
+        ax: document.getElementById("axOut"),
+        ay: document.getElementById("ayOut"),
+        bx: document.getElementById("bxOut"),
+        by: document.getElementById("byOut"),
+      };
+      const vectorA = document.getElementById("vectorA");
+      const vectorB = document.getElementById("vectorB");
+      const vectorR = document.getElementById("vectorR");
+      const labelA = document.getElementById("labelA");
+      const labelB = document.getElementById("labelB");
+      const labelR = document.getElementById("labelR");
+      const resultText = document.getElementById("resultText");
+      const centerX = 410;
+      const centerY = 230;
+      const scale = 22;
+      function point(x, y) {
+        return { x: centerX + x * scale, y: centerY - y * scale };
+      }
+      function makePath(x, y) {
+        const p = point(x, y);
+        return `M ${centerX} ${centerY} L ${p.x} ${p.y}`;
+      }
+      function update() {
+        const ax = Number(inputs.ax.value);
+        const ay = Number(inputs.ay.value);
+        const bx = Number(inputs.bx.value);
+        const by = Number(inputs.by.value);
+        const rx = ax + bx;
+        const ry = ay + by;
+        const len = Math.sqrt(rx * rx + ry * ry);
+        const angle = Math.round(
+          ((Math.atan2(ry, rx) * 180) / Math.PI + 360) % 360,
+        );
+        outs.ax.textContent = ax;
+        outs.ay.textContent = ay;
+        outs.bx.textContent = bx;
+        outs.by.textContent = by;
+        vectorA.setAttribute("d", makePath(ax, ay));
+        vectorB.setAttribute(
+          "d",
+          `M ${point(ax, ay).x} ${point(ax, ay).y} L ${point(rx, ry).x} ${point(rx, ry).y}`,
+        );
+        vectorR.setAttribute("d", makePath(rx, ry));
+        const a = point(ax, ay);
+        const b = point(ax + bx, ay + by);
+        const r = point(rx, ry);
+        labelA.setAttribute("x", (a.x + 8).toFixed(1));
+        labelA.setAttribute("y", (a.y - 8).toFixed(1));
+        labelA.textContent = `A (${ax}, ${ay})`;
+        labelB.setAttribute("x", (b.x + 8).toFixed(1));
+        labelB.setAttribute("y", (b.y - 8).toFixed(1));
+        labelB.textContent = `B (${bx}, ${by})`;
+        labelR.setAttribute("x", (r.x + 8).toFixed(1));
+        labelR.setAttribute("y", (r.y - 8).toFixed(1));
+        labelR.textContent = `R (${rx}, ${ry})`;
+        resultText.textContent = `R = (${rx}, ${ry}) dengan panjang ${len.toFixed(1)} dan arah ${angle}°.`;
+      }
+      Object.values(inputs).forEach((input) =>
+        input.addEventListener("input", update),
+      );
+      update();
+    </script>
+  </body>
+</html>

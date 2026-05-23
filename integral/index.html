@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integral - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #ffffff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 78ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #eff6ff 0%, #fff 50%, #f8fafc 100%);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .bars {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .barWrap {
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: #fff;
+      }
+      .bar {
+        height: 20px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--blue), var(--green));
+        margin-top: 8px;
+      }
+      .bar.orange {
+        background: linear-gradient(90deg, var(--amber), #f97316);
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 10 · Integral</div>
+        <h1>
+          Integral membantu kita menghitung luas atau akumulasi dari
+          bagian-bagian kecil.
+        </h1>
+        <p class="lead">
+          Kalau turunan melihat perubahan sesaat, integral melihat penjumlahan
+          banyak bagian kecil. Di modul ini kita lihat area di bawah kurva.
+        </p>
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>Pilih batas bawah dan batas atas.</p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>Bagi daerah menjadi potongan kecil.</p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>Jumlahkan semua bagian untuk memperkirakan luas total.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Integral tentu</strong>
+                <p>∫ f(x) dx dari a ke b</p>
+              </div>
+              <div class="formula-card">
+                <strong>Contoh</strong>
+                <p>∫ x² dx = x³/3 + C</p>
+              </div>
+              <div class="formula-card">
+                <strong>Makna</strong>
+                <p>penjumlahan area kecil yang sangat banyak.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Simulasi interaktif: area di bawah kurva y = x²</h2>
+        <p>Geser batas kiri dan kanan untuk melihat luas yang dihitung.</p>
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Area integral</strong
+              ><span class="badge">luas terisi</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Integral luas kurva"
+            >
+              <defs>
+                <marker
+                  id="arrowBlue"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#2563eb" />
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="820" height="460" fill="#fff" />
+              <g stroke="#cbd5e1" stroke-width="1">
+                <line x1="410" y1="20" x2="410" y2="440" />
+                <line x1="20" y1="230" x2="800" y2="230" />
+                <line x1="290" y1="20" x2="290" y2="440" opacity=".35" />
+                <line x1="530" y1="20" x2="530" y2="440" opacity=".35" />
+              </g>
+              <g stroke="#94a3b8" stroke-width="2">
+                <line x1="410" y1="230" x2="790" y2="230" />
+                <line x1="410" y1="230" x2="410" y2="30" />
+              </g>
+              <path
+                id="curve"
+                d=""
+                stroke="#2563eb"
+                stroke-width="6"
+                fill="none"
+                marker-end="url(#arrowBlue)"
+              />
+              <path id="area" d="" fill="rgba(34,197,94,.35)" stroke="none" />
+              <line
+                id="aLine"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="0"
+                stroke="#f59e0b"
+                stroke-width="4"
+                stroke-dasharray="8 6"
+              />
+              <line
+                id="bLine"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="0"
+                stroke="#f59e0b"
+                stroke-width="4"
+                stroke-dasharray="8 6"
+              />
+              <text
+                x="778"
+                y="220"
+                fill="#475569"
+                font-size="16"
+                font-weight="700"
+              >
+                x
+              </text>
+              <text
+                x="420"
+                y="45"
+                fill="#475569"
+                font-size="16"
+                font-weight="700"
+              >
+                y
+              </text>
+              <text
+                x="420"
+                y="248"
+                fill="#475569"
+                font-size="16"
+                font-weight="700"
+              >
+                O
+              </text>
+            </svg>
+            <p style="margin-top: 12px">
+              Area hijau menunjukkan integral tentu.
+            </p>
+          </div>
+          <div class="lab-controls">
+            <div class="control">
+              <label for="a">Batas a <span id="aOut">0.0</span></label
+              ><input
+                id="a"
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value="0"
+              />
+            </div>
+            <div class="control">
+              <label for="b">Batas b <span id="bOut">2.0</span></label
+              ><input
+                id="b"
+                type="range"
+                min="0.5"
+                max="3"
+                step="0.1"
+                value="2"
+              />
+            </div>
+            <div class="result">
+              <strong>Luas area</strong>
+              <div id="resultText">∫[0.0→2.0] x² dx ≈ 2.67</div>
+            </div>
+            <div
+              class="tips"
+              style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px"
+            >
+              <span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >luas</span
+              ><span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >akumulasi</span
+              ><span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >potongan kecil</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="bars">
+          <div class="barWrap">
+            <strong>a</strong>
+            <div id="barA" class="bar"></div>
+          </div>
+          <div class="barWrap">
+            <strong>b</strong>
+            <div id="barB" class="bar orange"></div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Integral dipakai saat menghitung jarak dari kecepatan yang
+              berubah-ubah.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Di fisika, integral membantu menghitung usaha dan massa total dari
+              distribusi yang tidak seragam.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>
+              Di dunia nyata, integral membantu menjumlahkan bagian-bagian kecil
+              jadi satu hasil total.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa arti integral secara sederhana?</h3>
+            <p>Petunjuk: penjumlahan banyak bagian kecil.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Integral adalah penjumlahan atau akumulasi dari banyak bagian
+                kecil.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Apa yang dihitung pada integral tentu?</h3>
+            <p>Petunjuk: luas atau nilai total dalam selang.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Integral tentu menghitung akumulasi atau luas pada batas bawah
+                dan batas atas tertentu.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>3. Jika integral x² dari 0 sampai 2, hasilnya berapa?</h3>
+            <p>Petunjuk: pakai rumus x³/3.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">Hasilnya 8/3 atau sekitar 2.67.</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>4. Mengapa integral penting di fisika?</h3>
+            <p>Petunjuk: karena banyak besaran dijumlahkan terus-menerus.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Karena integral dipakai untuk menghitung total dari besaran yang
+                berubah secara kontinu.
+              </div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci integral adalah membayangkan area sebagai kumpulan bagian kecil
+          yang dijumlahkan.
+        </div>
+      </section>
+    </main>
+    <script>
+      const aInput = document.getElementById("a");
+      const bInput = document.getElementById("b");
+      const aOut = document.getElementById("aOut");
+      const bOut = document.getElementById("bOut");
+      const resultText = document.getElementById("resultText");
+      const curve = document.getElementById("curve");
+      const area = document.getElementById("area");
+      const aLine = document.getElementById("aLine");
+      const bLine = document.getElementById("bLine");
+      const barA = document.getElementById("barA");
+      const barB = document.getElementById("barB");
+      const centerX = 410,
+        centerY = 230,
+        scale = 70;
+      function p(x, y) {
+        return { x: centerX + x * scale, y: centerY - y * scale };
+      }
+      function f(x) {
+        return x * x;
+      }
+      function draw() {
+        let a = Number(aInput.value),
+          b = Number(bInput.value);
+        if (a > b) {
+          [a, b] = [b, a];
+        }
+        aOut.textContent = a.toFixed(1);
+        bOut.textContent = b.toFixed(1);
+        let path = "";
+        for (let x = -2; x <= 2; x += 0.05) {
+          const pt = p(x, f(x));
+          path += path === "" ? `M ${pt.x} ${pt.y}` : ` L ${pt.x} ${pt.y}`;
+        }
+        curve.setAttribute("d", path);
+        const pa = p(a, 0);
+        const pb = p(b, 0);
+        aLine.setAttribute("x1", pa.x);
+        aLine.setAttribute("y1", p(a, 0).y);
+        aLine.setAttribute("x2", pa.x);
+        aLine.setAttribute("y2", p(a, 4).y);
+        bLine.setAttribute("x1", pb.x);
+        bLine.setAttribute("y1", p(b, 0).y);
+        bLine.setAttribute("x2", pb.x);
+        bLine.setAttribute("y2", p(b, 4).y);
+        let areaPath = `M ${pa.x} ${pa.y}`;
+        for (let x = a; x <= b; x += 0.03) {
+          const pt = p(x, f(x));
+          areaPath += ` L ${pt.x} ${pt.y}`;
+        }
+        areaPath += ` L ${pb.x} ${pb.y} Z`;
+        area.setAttribute("d", areaPath);
+        const exact = (Math.pow(b, 3) - Math.pow(a, 3)) / 3;
+        resultText.textContent = `∫[${a.toFixed(1)}→${b.toFixed(1)}] x² dx ≈ ${exact.toFixed(2)}`;
+        barA.style.width = `${Math.max(20, Math.min(100, (a / 3) * 100))}%`;
+        barB.style.width = `${Math.max(20, Math.min(100, (b / 3) * 100))}%`;
+      }
+      aInput.addEventListener("input", draw);
+      bInput.addEventListener("input", draw);
+      draw();
+    </script>
+  </body>
+</html>

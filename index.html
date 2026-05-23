@@ -4,472 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Belajar Math Visual</title>
-    <style>
-      :root {
-        --bg: #ffffff;
-        --section-bg: #f8fafc;
-        --card-bg: rgba(255, 255, 255, 0.88);
-        --border: #e2e8f0;
-        --text: #0f172a;
-        --muted: #334155;
-        --blue: #2563eb;
-        --green: #22c55e;
-        --amber: #f59e0b;
-        --shadow: 0 18px 50px rgba(15, 23, 42, 0.09);
-        --radius: 24px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(
-            circle at top left,
-            rgba(37, 99, 235, 0.12),
-            transparent 28%
-          ),
-          radial-gradient(
-            circle at top right,
-            rgba(34, 197, 94, 0.12),
-            transparent 24%
-          ),
-          linear-gradient(180deg, #f8fbff 0%, #ffffff 34%, #f8fafc 100%);
-        min-height: 100vh;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .page {
-        width: min(1180px, calc(100% - 32px));
-        margin: 0 auto;
-        padding: 28px 0 56px;
-      }
-
-      .hero {
-        position: relative;
-        overflow: hidden;
-        background: linear-gradient(
-          135deg,
-          rgba(37, 99, 235, 0.08),
-          rgba(34, 197, 94, 0.08)
-        );
-        border: 1px solid rgba(226, 232, 240, 0.95);
-        border-radius: 32px;
-        padding: 34px;
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(14px);
-      }
-
-      .hero::before,
-      .hero::after {
-        content: "";
-        position: absolute;
-        border-radius: 999px;
-        pointer-events: none;
-        opacity: 0.85;
-      }
-
-      .hero::before {
-        width: 180px;
-        height: 180px;
-        right: -40px;
-        top: -55px;
-        background: rgba(37, 99, 235, 0.14);
-      }
-
-      .hero::after {
-        width: 120px;
-        height: 120px;
-        right: 120px;
-        bottom: -45px;
-        background: rgba(34, 197, 94, 0.16);
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 14px;
-        border-radius: 999px;
-        background: rgba(15, 23, 42, 0.05);
-        color: var(--muted);
-        font-size: 0.92rem;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-      }
-
-      .eyebrow span {
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        background: linear-gradient(135deg, var(--blue), var(--green));
-        box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.1);
-      }
-
-      .hero-grid {
-        position: relative;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 26px;
-        align-items: center;
-        margin-top: 18px;
-        z-index: 1;
-      }
-
-      h1 {
-        margin: 14px 0 14px;
-        font-size: clamp(2.3rem, 4.6vw, 4.6rem);
-        line-height: 1.02;
-        letter-spacing: -0.04em;
-      }
-
-      .lead {
-        margin: 0;
-        font-size: 1.05rem;
-        line-height: 1.7;
-        color: var(--muted);
-        max-width: 62ch;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 26px;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        min-height: 48px;
-        padding: 0 18px;
-        border-radius: 14px;
-        font-weight: 700;
-        border: 1px solid transparent;
-        transition:
-          transform 0.18s ease,
-          box-shadow 0.18s ease,
-          border-color 0.18s ease;
-      }
-
-      .btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .btn-primary {
-        color: #fff;
-        background: linear-gradient(135deg, var(--blue), #1d4ed8);
-        box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
-      }
-
-      .btn-secondary {
-        color: var(--text);
-        background: rgba(255, 255, 255, 0.75);
-        border-color: var(--border);
-      }
-
-      .hero-panel {
-        padding: 22px;
-        background: rgba(255, 255, 255, 0.68);
-        border: 1px solid rgba(226, 232, 240, 0.9);
-        border-radius: 24px;
-        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
-      }
-
-      .panel-title {
-        margin: 0 0 14px;
-        font-size: 1.05rem;
-        color: var(--muted);
-      }
-
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .stat {
-        padding: 18px;
-        border-radius: 18px;
-        background: #fff;
-        border: 1px solid var(--border);
-      }
-
-      .stat strong {
-        display: block;
-        font-size: 1.5rem;
-        line-height: 1;
-        margin-bottom: 8px;
-      }
-
-      .stat p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.5;
-        font-size: 0.95rem;
-      }
-
-      .section {
-        margin-top: 28px;
-        padding: 28px;
-        background: rgba(248, 250, 252, 0.88);
-        border: 1px solid rgba(226, 232, 240, 0.95);
-        border-radius: 28px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
-      }
-
-      .section-header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 14px;
-        align-items: end;
-        margin-bottom: 22px;
-      }
-
-      .section-header h2 {
-        margin: 0;
-        font-size: clamp(1.45rem, 2vw, 2rem);
-      }
-
-      .section-header p {
-        margin: 6px 0 0;
-        color: var(--muted);
-        line-height: 1.6;
-        max-width: 68ch;
-      }
-
-      .filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        padding: 9px 14px;
-        border-radius: 999px;
-        font-size: 0.92rem;
-        color: var(--muted);
-        background: #fff;
-        border: 1px solid var(--border);
-      }
-
-      .chip.active {
-        color: var(--blue);
-        border-color: rgba(37, 99, 235, 0.2);
-        background: rgba(37, 99, 235, 0.08);
-      }
-
-      .module-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      .card {
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        min-height: 100%;
-        border-radius: 24px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease,
-          border-color 0.2s ease;
-        backdrop-filter: blur(12px);
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.1);
-        border-color: rgba(37, 99, 235, 0.25);
-      }
-
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto auto 0;
-        width: 100%;
-        height: 7px;
-        background: linear-gradient(
-          90deg,
-          var(--blue),
-          var(--green),
-          var(--amber)
-        );
-      }
-
-      .card-body {
-        padding: 22px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        flex: 1;
-      }
-
-      .card-top {
-        display: flex;
-        align-items: start;
-        justify-content: space-between;
-        gap: 14px;
-      }
-
-      .icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 16px;
-        display: grid;
-        place-items: center;
-        font-size: 1.35rem;
-        background: linear-gradient(
-          135deg,
-          rgba(37, 99, 235, 0.12),
-          rgba(34, 197, 94, 0.12)
-        );
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        flex: 0 0 auto;
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 7px 12px;
-        border-radius: 999px;
-        background: rgba(34, 197, 94, 0.1);
-        color: #166534;
-        font-size: 0.82rem;
-        font-weight: 700;
-        white-space: nowrap;
-      }
-
-      .badge::before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: var(--green);
-      }
-
-      .card h3 {
-        margin: 0;
-        font-size: 1.2rem;
-        line-height: 1.35;
-      }
-
-      .card p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.7;
-        font-size: 0.96rem;
-      }
-
-      .card-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: auto;
-      }
-
-      .meta-pill {
-        padding: 7px 10px;
-        border-radius: 999px;
-        background: #fff;
-        border: 1px solid var(--border);
-        color: var(--muted);
-        font-size: 0.84rem;
-      }
-
-      .card-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding-top: 6px;
-      }
-
-      .card-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--blue);
-        font-weight: 700;
-      }
-
-      .arrow {
-        width: 34px;
-        height: 34px;
-        border-radius: 999px;
-        display: grid;
-        place-items: center;
-        color: #fff;
-        background: linear-gradient(135deg, var(--blue), #1d4ed8);
-        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.24);
-      }
-
-      .footer-note {
-        margin-top: 18px;
-        color: var(--muted);
-        font-size: 0.95rem;
-        line-height: 1.7;
-      }
-
-      @media (max-width: 960px) {
-        .hero-grid,
-        .module-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .stats {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .page {
-          width: min(100% - 20px, 1180px);
-          padding-top: 18px;
-        }
-
-        .hero,
-        .section {
-          padding: 22px;
-          border-radius: 24px;
-        }
-
-        .stats {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-actions {
-          flex-direction: column;
-        }
-
-        .btn {
-          width: 100%;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main class="page">
@@ -520,7 +55,7 @@
               <div class="stat">
                 <strong>Hub</strong>
                 <p>
-                  Root `index.html` menjadi pusat navigasi ke semua modul yang
+                  Root index.html menjadi pusat navigasi ke semua modul yang
                   ada.
                 </p>
               </div>
@@ -543,29 +78,46 @@
             <span class="chip active">Semua</span>
             <span class="chip">Geometri</span>
             <span class="chip">Trigonometri</span>
+            <span class="chip">Limit</span>
+            <span class="chip">Turunan</span>
+            <span class="chip">Integral</span>
+            <span class="chip">PDE</span>
+            <span class="chip">Linear Algebra Lanjutan</span>
+            <span class="chip">Relativitas</span>
+            <span class="chip">Kuantum</span>
+            <span class="chip">Mekanika</span>
+            <span class="chip">Energi</span>
+            <span class="chip">Momentum</span>
+            <span class="chip">Gelombang</span>
+            <span class="chip">Listrik &amp; Magnet</span>
+            <span class="chip">Probabilitas</span>
+            <span class="chip">Statistik</span>
+            <span class="chip">Vektor</span>
+            <span class="chip">Matriks</span>
+            <span class="chip">Fungsi</span>
+            <span class="chip">Aritmetika</span>
             <span class="chip">Aljabar</span>
           </div>
         </div>
 
         <div class="module-grid">
-          <article class="card" id="unggulan">
+          <a class="card" id="unggulan" href="aritmetika/index.html">
             <div class="card-body">
               <div class="card-top">
-                <div class="icon">📐</div>
-                <div class="badge">Siap dibuka</div>
+                <div class="icon">🔢</div>
+                <div class="badge">Modul 1</div>
               </div>
               <div>
-                <h3>Geometri dan Trigonometri</h3>
+                <h3>Aritmetika</h3>
                 <p>
-                  Modul visual untuk mengenal bentuk, sudut, lingkaran, sin,
-                  cos, dan bagaimana semua itu saling terhubung melalui gambar
-                  dan gerak.
+                  Mengenal operasi hitung dasar, urutan pengerjaan, dan cara
+                  memeriksa jawaban dengan latihan soal yang sederhana.
                 </p>
               </div>
               <div class="card-meta">
-                <span class="meta-pill">Visual interaktif</span>
-                <span class="meta-pill">Bahasa sederhana</span>
-                <span class="meta-pill">Contoh bertahap</span>
+                <span class="meta-pill">Tambah, kurang, kali, bagi</span>
+                <span class="meta-pill">Latihan soal</span>
+                <span class="meta-pill">Cocok untuk SMP</span>
               </div>
               <div class="card-footer">
                 <span class="card-link"
@@ -573,66 +125,534 @@
                 >
               </div>
             </div>
-          </article>
+          </a>
 
-          <article class="card">
+          <a class="card" href="aljabar/index.html">
             <div class="card-body">
               <div class="card-top">
-                <div class="icon">🔢</div>
-                <div class="badge">Rencana berikutnya</div>
+                <div class="icon">📘</div>
+                <div class="badge">Modul 2</div>
               </div>
               <div>
-                <h3>Aljabar Dasar</h3>
+                <h3>Aljabar</h3>
                 <p>
-                  Belajar variabel, bentuk sederhana, dan cara berpikir aljabar
-                  dengan contoh yang dekat dengan kehidupan sehari-hari.
+                  Memahami variabel, bentuk aljabar, dan cara berpikir langkah
+                  demi langkah agar rumus terasa masuk akal.
                 </p>
               </div>
               <div class="card-meta">
-                <span class="meta-pill">Konsep inti</span>
-                <span class="meta-pill">Latihan ringkas</span>
-                <span class="meta-pill">Rumus masuk akal</span>
+                <span class="meta-pill">Variabel</span>
+                <span class="meta-pill">Bentuk aljabar</span>
+                <span class="meta-pill">Latihan soal</span>
               </div>
               <div class="card-footer">
                 <span class="card-link"
-                  >Siapkan modul <span class="arrow">→</span></span
+                  >Buka modul <span class="arrow">→</span></span
                 >
               </div>
             </div>
-          </article>
+          </a>
 
-          <article class="card">
+          <a class="card" href="geometri/index.html">
             <div class="card-body">
               <div class="card-top">
-                <div class="icon">🧭</div>
-                <div class="badge">Rencana berikutnya</div>
+                <div class="icon">📐</div>
+                <div class="badge">Modul 3</div>
               </div>
               <div>
-                <h3>Bangun Datar</h3>
+                <h3>Geometri</h3>
                 <p>
-                  Menjelaskan persegi, persegi panjang, segitiga, dan lingkaran
-                  lewat bentuk yang mudah dilihat sebelum masuk ke luas dan
-                  keliling.
+                  Mengenal bentuk, sudut, dan cara memakai trigonometri untuk
+                  mengukur tinggi gedung atau pohon tanpa harus memanjat.
                 </p>
               </div>
               <div class="card-meta">
-                <span class="meta-pill">Gambar jelas</span>
-                <span class="meta-pill">Sisi dan sudut</span>
-                <span class="meta-pill">Langkah ringan</span>
+                <span class="meta-pill">Sudut dan sisi</span>
+                <span class="meta-pill">Simulasi interaktif</span>
+                <span class="meta-pill">Aplikasi nyata</span>
               </div>
               <div class="card-footer">
                 <span class="card-link"
-                  >Siapkan modul <span class="arrow">→</span></span
+                  >Buka modul <span class="arrow">→</span></span
                 >
               </div>
             </div>
-          </article>
+          </a>
+
+          <a class="card" href="trigonometri/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">∠</div>
+                <div class="badge">Modul 4</div>
+              </div>
+              <div>
+                <h3>Trigonometri</h3>
+                <p>
+                  Memahami sin, cos, dan tan lewat segitiga siku-siku, lalu
+                  memakainya untuk membaca sudut dan mengukur objek di dunia
+                  nyata.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">sin, cos, tan</span>
+                <span class="meta-pill">Segitiga siku-siku</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="vektor/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">➜</div>
+                <div class="badge">Modul 5</div>
+              </div>
+              <div>
+                <h3>Vektor</h3>
+                <p>
+                  Belajar arah dan besar perpindahan lewat penjumlahan vektor,
+                  navigasi, dan contoh gerak yang dekat dengan kehidupan nyata.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Arah dan besar</span>
+                <span class="meta-pill">Simulasi interaktif</span>
+                <span class="meta-pill">Gerak nyata</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="matriks/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">▦</div>
+                <div class="badge">Modul 6</div>
+              </div>
+              <div>
+                <h3>Matriks</h3>
+                <p>
+                  Mengenal tabel angka untuk transformasi titik, skala, dan cara
+                  kerja visual pada grafik atau gambar.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Tabel angka</span>
+                <span class="meta-pill">Transformasi</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="fungsi/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">ƒ</div>
+                <div class="badge">Modul 7</div>
+              </div>
+              <div>
+                <h3>Fungsi</h3>
+                <p>
+                  Memahami aturan input-output, membaca grafik, dan melihat
+                  bagaimana satu nilai masuk menghasilkan nilai lain.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Input dan output</span>
+                <span class="meta-pill">Grafik interaktif</span>
+                <span class="meta-pill">Aplikasi nyata</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="limit/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">≈</div>
+                <div class="badge">Modul 8</div>
+              </div>
+              <div>
+                <h3>Limit</h3>
+                <p>
+                  Memahami apa yang terjadi saat nilai mendekati titik tertentu,
+                  lengkap dengan grafik yang bergerak mendekati batas.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Mendekati nilai</span>
+                <span class="meta-pill">Grafik interaktif</span>
+                <span class="meta-pill">Dasar kalkulus</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="turunan/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">∂</div>
+                <div class="badge">Modul 9</div>
+              </div>
+              <div>
+                <h3>Turunan</h3>
+                <p>
+                  Melihat perubahan sesaat dari sebuah kurva melalui garis
+                  singgung dan kecepatan perubahan.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Laju perubahan</span>
+                <span class="meta-pill">Tangent line</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="integral/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">∫</div>
+                <div class="badge">Modul 10</div>
+              </div>
+              <div>
+                <h3>Integral</h3>
+                <p>
+                  Memahami luas di bawah kurva dengan pendekatan potongan kecil
+                  dan visual area yang terisi.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Luas area</span>
+                <span class="meta-pill">Potongan kecil</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="persamaan_diferensial/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">y'</div>
+                <div class="badge">Modul 11</div>
+              </div>
+              <div>
+                <h3>Persamaan Diferensial</h3>
+                <p>
+                  Melihat model perubahan seperti pertumbuhan, peluruhan, dan
+                  pendinginan lewat aturan yang berubah terhadap waktu.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Model perubahan</span>
+                <span class="meta-pill">Eksponensial</span>
+                <span class="meta-pill">Simulasi</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="mekanika/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">⚙</div>
+                <div class="badge">Modul 12</div>
+              </div>
+              <div>
+                <h3>Mekanika</h3>
+                <p>
+                  Belajar gerak, kecepatan, percepatan, dan posisi lewat
+                  simulasi benda bergerak di lintasan.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Gerak</span>
+                <span class="meta-pill">Posisi-waktu</span>
+                <span class="meta-pill">Simulasi</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="energi/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">⚡</div>
+                <div class="badge">Modul 13</div>
+              </div>
+              <div>
+                <h3>Energi</h3>
+                <p>
+                  Memahami energi potensial dan kinetik, serta bagaimana energi
+                  berpindah dan berubah bentuk.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Potensial & kinetik</span>
+                <span class="meta-pill">Energi total</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="momentum/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">⇄</div>
+                <div class="badge">Modul 14</div>
+              </div>
+              <div>
+                <h3>Momentum</h3>
+                <p>
+                  Melihat bagaimana massa dan kecepatan membentuk momentum, lalu
+                  memakainya untuk tumbukan sederhana.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">p = mv</span>
+                <span class="meta-pill">Tumbukan</span>
+                <span class="meta-pill">Simulasi</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="gelombang/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">〰</div>
+                <div class="badge">Modul 15</div>
+              </div>
+              <div>
+                <h3>Gelombang</h3>
+                <p>
+                  Mengamati amplitudo, frekuensi, dan panjang gelombang lewat
+                  grafik yang bisa diubah langsung.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Amplitudo</span>
+                <span class="meta-pill">Frekuensi</span>
+                <span class="meta-pill">Grafik interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="listrik_magnet/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">⏻</div>
+                <div class="badge">Modul 16</div>
+              </div>
+              <div>
+                <h3>Listrik &amp; Magnet</h3>
+                <p>
+                  Belajar tegangan, arus, hambatan, dan gaya magnet dengan
+                  contoh rangkaian sederhana yang bisa diubah.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Ohm</span>
+                <span class="meta-pill">Rangkaian</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="probabilitas/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">🎲</div>
+                <div class="badge">Modul 17</div>
+              </div>
+              <div>
+                <h3>Probabilitas</h3>
+                <p>
+                  Menghitung peluang lewat koin, dadu, dan percobaan acak agar
+                  siswa paham makna peluang.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Peluang</span>
+                <span class="meta-pill">Simulasi acak</span>
+                <span class="meta-pill">Eksperimen</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="statistik/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">▤</div>
+                <div class="badge">Modul 18</div>
+              </div>
+              <div>
+                <h3>Statistik</h3>
+                <p>
+                  Membaca data, menghitung rata-rata, median, dan melihat pola
+                  dari grafik sederhana.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Rata-rata</span>
+                <span class="meta-pill">Diagram data</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="linear_algebra_lanjutan/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">A↔B</div>
+                <div class="badge">Modul 19</div>
+              </div>
+              <div>
+                <h3>Linear Algebra Lanjutan</h3>
+                <p>
+                  Melihat kombinasi vektor, basis sederhana, dan bagaimana dua
+                  arah bisa membentuk ruang gerak yang lebih luas.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Vektor</span>
+                <span class="meta-pill">Kombinasi linear</span>
+                <span class="meta-pill">Interaktif</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="relativitas/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">⏱</div>
+                <div class="badge">Modul 20</div>
+              </div>
+              <div>
+                <h3>Relativitas</h3>
+                <p>
+                  Mengenal ide bahwa waktu dan jarak bisa tampak berbeda ketika
+                  gerak sangat cepat mendekati kecepatan cahaya.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Waktu</span>
+                <span class="meta-pill">Gerak cepat</span>
+                <span class="meta-pill">Visual sederhana</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="kuantum/index.html">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">◉</div>
+                <div class="badge">Modul 21</div>
+              </div>
+              <div>
+                <h3>Kuantum</h3>
+                <p>
+                  Menjelajahi ide tingkat energi diskret dan peluang sederhana
+                  pada dunia sangat kecil.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Tingkat energi</span>
+                <span class="meta-pill">Peluang</span>
+                <span class="meta-pill">Eksperimen visual</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </a>
         </div>
 
         <p class="footer-note">
           Saat modul baru dibuat, simpan di folder sesuai nama materi, lalu
-          hubungkan dari halaman ini supaya root `index.html` tetap menjadi
-          pusat navigasi seluruh pembelajaran.
+          hubungkan dari halaman ini supaya root index.html tetap menjadi pusat
+          navigasi seluruh pembelajaran.
         </p>
       </section>
     </main>

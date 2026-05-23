@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listrik & Magnet - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #fff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 80ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #fff 0%, #eff6ff 100%);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .status {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 16 · Listrik & Magnet</div>
+        <h1>
+          Listrik dan magnet saling terkait dan sering dipakai bersama dalam
+          teknologi.
+        </h1>
+        <p class="lead">
+          Kita mulai dari rangkaian listrik sederhana, lalu melihat bagaimana
+          arus memengaruhi medan magnet. Ini dasar dari lampu, motor, dan banyak
+          alat modern.
+        </p>
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>Pahami tegangan, arus, dan hambatan.</p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>Lihat bagaimana arus mengalir dalam rangkaian.</p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>Hubungkan arus dengan efek magnet.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Hukum Ohm</strong>
+                <p>V = IR</p>
+              </div>
+              <div class="formula-card">
+                <strong>Daya listrik</strong>
+                <p>P = VI</p>
+              </div>
+              <div class="formula-card">
+                <strong>Makna</strong>
+                <p>arus lebih besar berarti efek listrik lebih kuat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Simulasi interaktif: rangkaian sederhana</h2>
+        <p>Geser tegangan dan hambatan untuk melihat arus berubah.</p>
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Arus dan magnet</strong
+              ><span class="badge">Rangkaian aktif</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Simulasi listrik dan magnet"
+            >
+              <rect width="820" height="460" fill="#fff" />
+              <rect x="0" y="330" width="820" height="130" fill="#dcfce7" />
+              <circle id="bulb" cx="420" cy="180" r="42" fill="#f59e0b" />
+              <path
+                id="magnet"
+                d="M150 190 h90 v70 h-90 a35 35 0 0 1 0 -70z"
+                fill="#2563eb"
+              />
+              <path
+                id="wire"
+                d="M240 200 H360 M480 200 H600 M600 200 C690 200,690 270,600 270 H240 C150 270,150 200,240 200"
+                stroke="#0f172a"
+                stroke-width="10"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <text
+                id="currentLabel"
+                x="0"
+                y="0"
+                fill="#166534"
+                font-size="16"
+                font-weight="700"
+              ></text>
+            </svg>
+            <div class="status">
+              <span class="pill" id="iText"></span
+              ><span class="pill" id="effectText"></span>
+            </div>
+          </div>
+          <div class="lab-controls">
+            <div class="control">
+              <label for="v">Tegangan V <span id="vOut">12</span></label
+              ><input
+                id="v"
+                type="range"
+                min="3"
+                max="24"
+                step="1"
+                value="12"
+              />
+            </div>
+            <div class="control">
+              <label for="r">Hambatan R <span id="rOut">6</span></label
+              ><input id="r" type="range" min="1" max="12" step="1" value="6" />
+            </div>
+            <div class="result">
+              <strong>Arus</strong>
+              <div id="resultText">I = 2.00 A</div>
+            </div>
+            <div
+              class="mini"
+              style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px"
+            >
+              <span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >tegangan</span
+              ><span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >arus</span
+              ><span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >medan magnet</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Lampu rumah menggunakan arus listrik untuk menghasilkan cahaya.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Motor listrik memanfaatkan hubungan listrik dan magnet untuk
+              menghasilkan gerak.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>Konsep ini ada di banyak alat sehari-hari.</p>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa isi hukum Ohm?</h3>
+            <p>Petunjuk: hubungan V, I, dan R.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">V = IR.</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Jika V = 12 dan R = 6, berapa arusnya?</h3>
+            <p>Petunjuk: V dibagi R.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">I = 2 A.</div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci listrik dan magnet adalah memahami aliran energi dan efek yang
+          ditimbulkannya.
+        </div>
+      </section>
+    </main>
+    <script>
+      const vInput = document.getElementById("v"),
+        rInput = document.getElementById("r"),
+        vOut = document.getElementById("vOut"),
+        rOut = document.getElementById("rOut"),
+        resultText = document.getElementById("resultText"),
+        iText = document.getElementById("iText"),
+        effectText = document.getElementById("effectText"),
+        currentLabel = document.getElementById("currentLabel"),
+        bulb = document.getElementById("bulb");
+      function update() {
+        const V = Number(vInput.value),
+          R = Number(rInput.value),
+          I = V / R;
+        vOut.textContent = V;
+        rOut.textContent = R;
+        resultText.textContent = `I = ${I.toFixed(2)} A`;
+        iText.textContent = `Arus = ${I.toFixed(2)} A`;
+        effectText.textContent =
+          I > 1.5 ? "Efek magnet kuat" : "Efek magnet sedang";
+        const glow = Math.min(80, 20 + I * 18);
+        bulb.setAttribute("fill", `rgb(245,158,11)`);
+        bulb.setAttribute("opacity", Math.min(1, 0.4 + I / 4));
+        currentLabel.setAttribute("x", 390);
+        currentLabel.setAttribute("y", 160);
+        currentLabel.textContent = `I=${I.toFixed(2)} A`;
+        bulb.style.filter = `drop-shadow(0 0 ${glow}px rgba(245,158,11,.8))`;
+      }
+      [vInput, rInput].forEach((el) => el.addEventListener("input", update));
+      update();
+    </script>
+  </body>
+</html>

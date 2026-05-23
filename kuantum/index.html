@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kuantum - Belajar Math Visual</title>
+    <style>
+      :root{--blue:#2563eb;--green:#22c55e;--amber:#f59e0b;--text:#0f172a;--muted:#334155;--border:#e2e8f0;--soft:#f8fafc;--shadow:0 18px 40px rgba(15,23,42,.08)}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(37,99,235,.12),transparent 28%),radial-gradient(circle at top right,rgba(34,197,94,.12),transparent 24%),linear-gradient(180deg,#f8fbff 0%,#fff 36%,#f8fafc 100%);min-height:100vh}a{color:inherit;text-decoration:none}.page{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:28px 0 56px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.back{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 10px 24px rgba(15,23,42,.05)}.hero,.section{border:1px solid var(--border);border-radius:28px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);backdrop-filter:blur(12px)}.hero{padding:30px}.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(37,99,235,.08);color:var(--muted);font-weight:700}.eyebrow span{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--blue),var(--green))}h1{margin:14px 0 12px;font-size:clamp(2.2rem,4vw,3.9rem);line-height:1.05;letter-spacing:-.04em}p{color:var(--muted);line-height:1.7;margin:0}.lead{max-width:80ch}.grid{display:grid;grid-template-columns:1fr .98fr;gap:18px;margin-top:22px}.panel{padding:20px;border-radius:22px;border:1px solid var(--border);background:var(--soft)}.panel h2,.section h2{margin:0 0 12px;font-size:1.35rem}.steps,.formulas{display:grid;gap:12px}.step,.formula-card,.exercise{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--border)}.step{display:flex;gap:12px;align-items:start}.num{width:34px;height:34px;flex:0 0 auto;display:grid;place-items:center;border-radius:12px;color:#fff;font-weight:700;background:linear-gradient(135deg,var(--blue),#1d4ed8)}.formula-card strong{display:block;margin-bottom:8px}.section{margin-top:22px;padding:28px}.lab{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;margin-top:18px}.lab-visual,.lab-controls{border-radius:24px;border:1px solid var(--border);background:#fff}.lab-visual{padding:18px}.lab-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.1);color:#166534;font-size:.85rem;font-weight:700}.scene{width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#eff6ff 0%,#fff 54%,#f8fafc 100%);border:1px solid rgba(226,232,240,.9)}.lab-controls{padding:18px}.control{margin-bottom:14px}.control label{display:flex;justify-content:space-between;gap:12px;font-weight:700;color:var(--text);margin-bottom:8px}input[type="range"]{width:100%}.result{margin-top:16px;padding:14px;border-radius:18px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.14)}.result strong{display:block;margin-bottom:4px}.exercise-grid{display:grid;gap:14px;margin-top:18px}.exercise h3{margin:0 0 10px;font-size:1.06rem}details{margin-top:12px;padding:12px 14px;border-radius:16px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15)}summary{cursor:pointer;font-weight:700;color:var(--blue)}.answer{margin-top:10px;color:var(--muted)}.note{margin-top:18px;padding:14px 16px;border-radius:18px;border-left:5px solid var(--green);background:rgba(34,197,94,.08);color:var(--muted)}.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.pill{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.84rem}.levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.level{padding:10px;border:1px solid var(--border);border-radius:16px;background:#fff;text-align:center}.level strong{display:block;margin-bottom:4px}@media (max-width:920px){.grid,.lab{grid-template-columns:1fr}.levels{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:640px){.page{width:min(100% - 20px,1120px);padding-top:18px}.hero,.section{padding:22px;border-radius:24px}}
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar"><a class="back" href="../index.html">← Kembali ke halaman utama</a></div>
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 21 · Kuantum</div>
+        <h1>Kuantum memperkenalkan dunia kecil yang bergerak dengan tingkat energi diskret.</h1>
+        <p class="lead">Untuk tahap awal, cukup pahami bahwa partikel kecil tidak selalu punya energi sembarang; sering kali energinya muncul dalam tingkat tertentu. Dari sini lahir ide peluang dan pengamatan yang khas di fisika modern.</p>
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step"><div class="num">1</div><p>Bayangkan partikel kecil seperti memiliki lantai energi.</p></div>
+              <div class="step"><div class="num">2</div><p>Partikel bisa berpindah antar tingkat, bukan di semua nilai sekaligus.</p></div>
+              <div class="step"><div class="num">3</div><p>Hasil pengukuran sering dibaca sebagai peluang muncul pada tingkat tertentu.</p></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card"><strong>Energi diskret</strong><p>E = n h f</p></div>
+              <div class="formula-card"><strong>Makna</strong><p>n menunjukkan tingkat energi yang berbeda.</p></div>
+              <div class="formula-card"><strong>Catatan</strong><p>Di modul ini kita fokus pada ide tingkat, bukan pembuktian formal.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Simulasi interaktif: tingkat energi</h2>
+        <p>Geser tingkat energi untuk melihat peluang pengamatan sederhana.</p>
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title"><strong>Atom sederhana</strong><span class="badge">Energi diskret</span></div>
+            <svg class="scene" viewBox="0 0 820 460" role="img" aria-label="Simulasi kuantum">
+              <rect width="820" height="460" fill="#fff"/>
+              <circle cx="410" cy="230" r="44" fill="#2563eb" opacity=".18"/>
+              <circle cx="410" cy="230" r="18" fill="#2563eb"/>
+              <g id="rings" stroke="#22c55e" stroke-width="5" fill="none" opacity=".8"></g>
+              <text id="energyLabel" x="0" y="0" fill="#166534" font-size="16" font-weight="700"></text>
+              <text id="probLabel" x="0" y="0" fill="#92400e" font-size="16" font-weight="700"></text>
+            </svg>
+            <div class="levels" id="levels"></div>
+          </div>
+          <div class="lab-controls">
+            <div class="control"><label for="n">Tingkat energi n <span id="nOut">2</span></label><input id="n" type="range" min="1" max="4" step="1" value="2" /></div>
+            <div class="result"><strong>Energi</strong><div id="resultText">E = 2</div></div>
+            <div class="status"><span class="pill" id="chanceText"></span><span class="pill">tingkat diskret</span><span class="pill">probabilitas</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><p>Spektrum cahaya membantu ilmuwan melihat tingkat energi yang berpindah.</p></div>
+          <div class="step"><div class="num">2</div><p>Sensor modern juga memakai prinsip kuantum untuk mendeteksi sinyal kecil.</p></div>
+          <div class="step"><div class="num">3</div><p>Ide ini penting karena dunia mikro tidak selalu mengikuti intuisi benda besar.</p></div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise"><h3>1. Apa yang dimaksud tingkat energi diskret?</h3><p>Petunjuk: hanya nilai tertentu.</p><details><summary>Lihat jawaban</summary><div class="answer">Artinya energi hanya muncul pada nilai-nilai tertentu, tidak sembarang nilai.</div></details></article>
+          <article class="exercise"><h3>2. Mengapa kuantum disebut dunia kecil?</h3><p>Petunjuk: perilaku partikel mikro.</p><details><summary>Lihat jawaban</summary><div class="answer">Karena efek kuantum paling jelas pada partikel dan sistem yang sangat kecil.</div></details></article>
+        </div>
+        <div class="note">Kunci kuantum adalah menerima bahwa pada skala kecil, energi dan peluang punya aturan yang berbeda.</div>
+      </section>
+    </main>
+    <script>
+      const nInput=document.getElementById('n');const nOut=document.getElementById('nOut');const resultText=document.getElementById('resultText');const chanceText=document.getElementById('chanceText');const energyLabel=document.getElementById('energyLabel');const probLabel=document.getElementById('probLabel');const rings=document.getElementById('rings');const levels=document.getElementById('levels');function update(){const n=Number(nInput.value),prob=(n/4);nOut.textContent=n;resultText.textContent=`E = ${n}`;chanceText.textContent=`P(tingkat ${n}) = ${prob.toFixed(2)}`;energyLabel.setAttribute('x',330);energyLabel.setAttribute('y',92);energyLabel.textContent=`Tingkat energi ${n}`;probLabel.setAttribute('x',305);probLabel.setAttribute('y',118);probLabel.textContent=`P = ${prob.toFixed(2)}`;rings.innerHTML='';for(let i=1;i<=n;i++){rings.innerHTML+=`<circle cx="410" cy="230" r="${50+i*38}"/>`;}
+        const items=[1,2,3,4].map(level=>`<div class="level"><strong>L${level}</strong><div>${level===n?'aktif':'menunggu'}</div></div>`).join('');levels.innerHTML=items;}
+nInput.addEventListener('input',update);update();
+    </script>
+  </body>
+</html>

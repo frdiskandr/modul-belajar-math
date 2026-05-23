@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gelombang - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #fff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 80ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          #eff6ff 0%,
+          #fff 52%,
+          #dcfce7 52%,
+          #bbf7d0 100%
+        );
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .status {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 15 · Gelombang</div>
+        <h1>Gelombang membawa energi melalui getaran yang merambat.</h1>
+        <p class="lead">
+          Kita melihat gelombang sebagai grafik yang bisa berubah amplitudo dan
+          frekuensinya. Ini berguna untuk suara, cahaya, dan sinyal.
+        </p>
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>Amati bentuk gelombang dan puncaknya.</p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>Ubah amplitudo dan frekuensi untuk melihat efeknya.</p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>Hubungkan bentuk grafik dengan energi atau nada.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Gelombang sinus</strong>
+                <p>y = A sin(kx - ωt)</p>
+              </div>
+              <div class="formula-card">
+                <strong>Panjang gelombang</strong>
+                <p>λ = v / f</p>
+              </div>
+              <div class="formula-card">
+                <strong>Makna</strong>
+                <p>
+                  amplitudo = tinggi gelombang, frekuensi = seberapa sering
+                  bergetar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Simulasi interaktif: gelombang sinus</h2>
+        <p>Geser amplitudo dan frekuensi untuk melihat grafik berubah.</p>
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Grafik gelombang</strong
+              ><span class="badge">Sinyal aktif</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Simulasi gelombang"
+            >
+              <rect width="820" height="460" fill="#fff" />
+              <g stroke="#cbd5e1" stroke-width="1">
+                <line x1="20" y1="230" x2="800" y2="230" />
+                <line x1="410" y1="20" x2="410" y2="440" />
+                <line x1="290" y1="20" x2="290" y2="440" opacity=".35" />
+                <line x1="530" y1="20" x2="530" y2="440" opacity=".35" />
+              </g>
+              <path
+                id="wave"
+                d=""
+                stroke="#2563eb"
+                stroke-width="5"
+                fill="none"
+              />
+              <circle id="marker" cx="0" cy="0" r="7" fill="#22c55e" />
+              <text
+                id="markerLabel"
+                x="0"
+                y="0"
+                fill="#166534"
+                font-size="16"
+                font-weight="700"
+              ></text>
+            </svg>
+            <div class="status">
+              <span class="pill" id="ampText"></span
+              ><span class="pill" id="freqText"></span>
+            </div>
+          </div>
+          <div class="lab-controls">
+            <div class="control">
+              <label for="amp">Amplitudo <span id="ampOut">1.0</span></label
+              ><input
+                id="amp"
+                type="range"
+                min="0.5"
+                max="2.5"
+                step="0.1"
+                value="1"
+              />
+            </div>
+            <div class="control">
+              <label for="freq">Frekuensi <span id="freqOut">1.0</span></label
+              ><input
+                id="freq"
+                type="range"
+                min="0.5"
+                max="3"
+                step="0.1"
+                value="1"
+              />
+            </div>
+            <div class="result">
+              <strong>Nilai saat ini</strong>
+              <div id="resultText">y(2.0) = 0.91</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Suara musik adalah gelombang yang bisa diukur lewat frekuensi dan
+              amplitudo.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>Di alat komunikasi, gelombang dipakai untuk mengirim sinyal.</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>
+              Karena itu gelombang penting untuk memahami bunyi dan teknologi.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa yang dimaksud amplitudo?</h3>
+            <p>Petunjuk: tinggi gelombang dari garis tengah.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Amplitudo adalah simpangan maksimum gelombang dari posisi
+                seimbang.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Apa arti frekuensi?</h3>
+            <p>Petunjuk: seberapa sering getaran terjadi.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Frekuensi adalah banyaknya getaran per satuan waktu.
+              </div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci gelombang adalah melihat pola berulang yang bergerak dan membawa
+          energi.
+        </div>
+      </section>
+    </main>
+    <script>
+      const ampInput = document.getElementById("amp"),
+        freqInput = document.getElementById("freq"),
+        ampOut = document.getElementById("ampOut"),
+        freqOut = document.getElementById("freqOut"),
+        resultText = document.getElementById("resultText"),
+        wave = document.getElementById("wave"),
+        marker = document.getElementById("marker"),
+        markerLabel = document.getElementById("markerLabel"),
+        ampText = document.getElementById("ampText"),
+        freqText = document.getElementById("freqText");
+      function update() {
+        const A = Number(ampInput.value),
+          f = Number(freqInput.value),
+          t = 2;
+        let path = "";
+        for (let i = 0; i <= 220; i++) {
+          const x = i * (8 / 220);
+          const y = A * Math.sin(f * x);
+          const px = 20 + x * 95,
+            py = 230 - y * 70;
+          path += path === "" ? `M ${px} ${py}` : ` L ${px} ${py}`;
+        }
+        wave.setAttribute("d", path);
+        const xm = 20 + t * 95,
+          ym = 230 - A * Math.sin(f * t) * 70;
+        marker.setAttribute("cx", xm);
+        marker.setAttribute("cy", ym);
+        markerLabel.setAttribute("x", xm + 8);
+        markerLabel.setAttribute("y", ym - 8);
+        markerLabel.textContent = `(${t.toFixed(1)}, ${(A * Math.sin(f * t)).toFixed(2)})`;
+        ampOut.textContent = A.toFixed(1);
+        freqOut.textContent = f.toFixed(1);
+        ampText.textContent = `Amplitudo = ${A.toFixed(1)}`;
+        freqText.textContent = `Frekuensi = ${f.toFixed(1)}`;
+        resultText.textContent = `y(2.0) = ${(A * Math.sin(f * t)).toFixed(2)}`;
+      }
+      [ampInput, freqInput].forEach((el) =>
+        el.addEventListener("input", update),
+      );
+      update();
+    </script>
+  </body>
+</html>

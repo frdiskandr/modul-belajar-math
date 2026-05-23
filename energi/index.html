@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Energi - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #fff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 80ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          #eff6ff 0%,
+          #fff 55%,
+          #dcfce7 55%,
+          #bbf7d0 100%
+        );
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .energyBox {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .energyCard {
+        padding: 12px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .bar {
+        height: 20px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--blue), var(--green));
+        margin-top: 8px;
+      }
+      .bar.orange {
+        background: linear-gradient(90deg, var(--amber), #f97316);
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+        .energyBox {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 13 · Energi</div>
+        <h1>
+          Energi menjelaskan kemampuan untuk melakukan kerja atau menghasilkan
+          perubahan.
+        </h1>
+        <p class="lead">
+          Kita melihat energi potensial dan kinetik lewat bola yang bergerak dan
+          naik turun. Dari sini siswa bisa memahami bahwa energi tidak hilang,
+          hanya berubah bentuk.
+        </p>
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>Bandingkan energi karena posisi dan energi karena gerak.</p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>
+                  Lihat bagaimana energi bisa berubah dari satu bentuk ke bentuk
+                  lain.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>Amati total energi agar tetap masuk akal.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Potensial</strong>
+                <p>Ep = mgh</p>
+              </div>
+              <div class="formula-card">
+                <strong>Kinetik</strong>
+                <p>Ek = 1/2 mv²</p>
+              </div>
+              <div class="formula-card">
+                <strong>Konservasi</strong>
+                <p>
+                  Energi total cenderung tetap jika tidak ada kehilangan besar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Simulasi interaktif: energi bola</h2>
+        <p>
+          Geser tinggi dan kecepatan untuk melihat energi potensial dan kinetik
+          berubah.
+        </p>
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Bola bergerak</strong
+              ><span class="badge">Energi aktif</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Simulasi energi bola"
+            >
+              <rect width="820" height="460" fill="#fff" />
+              <rect x="0" y="330" width="820" height="130" fill="#bbf7d0" />
+              <line
+                x1="100"
+                y1="320"
+                x2="100"
+                y2="70"
+                stroke="#94a3b8"
+                stroke-width="4"
+              />
+              <circle id="ball" cx="300" cy="320" r="22" fill="#2563eb" />
+              <text
+                id="ballLabel"
+                x="0"
+                y="0"
+                fill="#166534"
+                font-size="16"
+                font-weight="700"
+              ></text>
+            </svg>
+            <div class="energyBox">
+              <div class="energyCard">
+                <strong>Ep</strong>
+                <div id="epText">0 J</div>
+                <div class="bar" id="epBar"></div>
+              </div>
+              <div class="energyCard">
+                <strong>Ek</strong>
+                <div id="ekText">0 J</div>
+                <div class="bar orange" id="ekBar"></div>
+              </div>
+            </div>
+          </div>
+          <div class="lab-controls">
+            <div class="control">
+              <label for="h">Tinggi h <span id="hOut">8</span></label
+              ><input id="h" type="range" min="1" max="20" step="1" value="8" />
+            </div>
+            <div class="control">
+              <label for="v">Kecepatan v <span id="vOut">6</span></label
+              ><input id="v" type="range" min="0" max="20" step="1" value="6" />
+            </div>
+            <div class="control">
+              <label for="m">Massa m <span id="mOut">2</span></label
+              ><input id="m" type="range" min="1" max="5" step="1" value="2" />
+            </div>
+            <div class="result">
+              <strong>Energi total</strong>
+              <div id="resultText">Ep = 156.8 J, Ek = 36.0 J</div>
+            </div>
+            <div
+              class="mini"
+              style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px"
+            >
+              <span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >ubah bentuk</span
+              ><span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >potensial</span
+              ><span
+                class="pill"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  padding: 7px 10px;
+                  border-radius: 999px;
+                  border: 1px solid var(--border);
+                  background: #fff;
+                  color: var(--muted);
+                  font-size: 0.84rem;
+                "
+                >kinetik</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Ketika bola jatuh, energi potensial berubah menjadi energi
+              kinetik.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Di mesin, energi juga berpindah bentuk agar alat bisa bekerja.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>
+              Konsep ini membantu memahami efisiensi dan pemanfaatan energi.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa itu energi potensial?</h3>
+            <p>Petunjuk: energi karena posisi/ketinggian.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Energi potensial adalah energi yang dimiliki benda karena posisi
+                atau ketinggiannya.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Apa itu energi kinetik?</h3>
+            <p>Petunjuk: energi karena gerak.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Energi kinetik adalah energi yang dimiliki benda karena
+                bergerak.
+              </div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci energi adalah melihat perubahan bentuk energi tanpa menghilang
+          begitu saja.
+        </div>
+      </section>
+    </main>
+    <script>
+      const hInput = document.getElementById("h"),
+        vInput = document.getElementById("v"),
+        mInput = document.getElementById("m"),
+        hOut = document.getElementById("hOut"),
+        vOut = document.getElementById("vOut"),
+        mOut = document.getElementById("mOut"),
+        epText = document.getElementById("epText"),
+        ekText = document.getElementById("ekText"),
+        resultText = document.getElementById("resultText"),
+        ball = document.getElementById("ball"),
+        ballLabel = document.getElementById("ballLabel"),
+        epBar = document.getElementById("epBar"),
+        ekBar = document.getElementById("ekBar");
+      function update() {
+        const h = Number(hInput.value),
+          v = Number(vInput.value),
+          m = Number(mInput.value),
+          g = 9.8,
+          ep = m * g * h,
+          ek = 0.5 * m * v * v,
+          total = ep + ek;
+        hOut.textContent = h;
+        vOut.textContent = v;
+        mOut.textContent = m;
+        epText.textContent = `${ep.toFixed(1)} J`;
+        ekText.textContent = `${ek.toFixed(1)} J`;
+        resultText.textContent = `Ep = ${ep.toFixed(1)} J, Ek = ${ek.toFixed(1)} J`;
+        const y = 320 - Math.min(220, h * 10);
+        ball.setAttribute("cy", y);
+        ballLabel.setAttribute("x", 320);
+        ballLabel.setAttribute("y", y - 30);
+        ballLabel.textContent = `h=${h} m`;
+        const epw = Math.max(20, Math.min(100, (ep / 200) * 100));
+        const ekw = Math.max(20, Math.min(100, (ek / 200) * 100));
+        epBar.style.width = `${epw}%`;
+        ekBar.style.width = `${ekw}%`;
+      }
+      [hInput, vInput, mInput].forEach((el) =>
+        el.addEventListener("input", update),
+      );
+      update();
+    </script>
+  </body>
+</html>

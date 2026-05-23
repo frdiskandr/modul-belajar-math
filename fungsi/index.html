@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fungsi - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #ffffff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 80ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        display: block;
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #eff6ff 0%, #fff 52%, #f8fafc 100%);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .mini-table {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .cell {
+        padding: 10px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: #fff;
+        text-align: center;
+      }
+      .cell strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .tips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+        .mini-table {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul 7 · Fungsi</div>
+        <h1>
+          Fungsi adalah aturan input-output: satu nilai masuk, satu nilai
+          keluar.
+        </h1>
+        <p class="lead">
+          Fungsi membantu kita membaca hubungan antara dua hal. Contohnya, biaya
+          parkir tergantung lama parkir, atau jarak tempuh tergantung waktu dan
+          kecepatan. Di sini kita lihat fungsi linear sebagai grafik yang hidup.
+        </p>
+
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>
+                  Pahami bahwa fungsi menerima input, lalu mengubahnya menjadi
+                  output.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>Baca pola aturan dengan melihat grafik dan tabel nilai.</p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>Gunakan fungsi untuk memprediksi nilai baru dengan cepat.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Linear</strong>
+                <p>f(x) = mx + b</p>
+              </div>
+              <div class="formula-card">
+                <strong>Makna m</strong>
+                <p>m menunjukkan kemiringan garis.</p>
+              </div>
+              <div class="formula-card">
+                <strong>Makna b</strong>
+                <p>b adalah titik potong sumbu-y.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Simulasi interaktif: garis fungsi linear</h2>
+        <p>
+          Geser slope dan intercept untuk melihat bagaimana garis berubah pada
+          grafik.
+        </p>
+
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Grafik fungsi</strong
+              ><span class="badge">f(x) = mx + b</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Grafik fungsi linear"
+            >
+              <defs>
+                <marker
+                  id="arrowBlue"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#2563eb" />
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="820" height="460" fill="#fff" />
+              <g stroke="#cbd5e1" stroke-width="1">
+                <line x1="410" y1="20" x2="410" y2="440" />
+                <line x1="20" y1="230" x2="800" y2="230" />
+                <line x1="290" y1="20" x2="290" y2="440" opacity="0.35" />
+                <line x1="530" y1="20" x2="530" y2="440" opacity="0.35" />
+                <line x1="20" y1="110" x2="800" y2="110" opacity="0.35" />
+                <line x1="20" y1="350" x2="800" y2="350" opacity="0.35" />
+              </g>
+              <g stroke="#94a3b8" stroke-width="2">
+                <line x1="410" y1="230" x2="790" y2="230" />
+                <line x1="410" y1="230" x2="410" y2="30" />
+              </g>
+              <g font-size="16" fill="#475569" font-weight="700">
+                <text x="780" y="220">x</text>
+                <text x="420" y="45">y</text>
+                <text x="420" y="248">O</text>
+              </g>
+              <path
+                id="linePath"
+                d=""
+                stroke="#2563eb"
+                stroke-width="6"
+                fill="none"
+                marker-end="url(#arrowBlue)"
+              />
+              <circle id="p0" cx="0" cy="0" r="7" fill="#22c55e" />
+              <circle id="p1" cx="0" cy="0" r="7" fill="#22c55e" />
+              <circle id="p2" cx="0" cy="0" r="7" fill="#22c55e" />
+              <text
+                id="pointLabel"
+                x="0"
+                y="0"
+                fill="#166534"
+                font-size="16"
+                font-weight="700"
+              ></text>
+            </svg>
+            <div class="mini-table" id="table"></div>
+          </div>
+
+          <div class="lab-controls">
+            <div class="control">
+              <label for="m">Kemiringan m <span id="mOut">1.2</span></label
+              ><input
+                id="m"
+                type="range"
+                min="-3"
+                max="3"
+                step="0.1"
+                value="1.2"
+              />
+            </div>
+            <div class="control">
+              <label for="b">Intercept b <span id="bOut">1</span></label
+              ><input
+                id="b"
+                type="range"
+                min="-6"
+                max="6"
+                step="0.5"
+                value="1"
+              />
+            </div>
+            <div class="result">
+              <strong>Hasil fungsi</strong>
+              <div id="resultText">f(x) = 1.2x + 1.0</div>
+            </div>
+            <div class="tips">
+              <span class="pill">input-output</span
+              ><span class="pill">grafik</span
+              ><span class="pill">prediksi</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Biaya ojek online bisa dimodelkan sebagai fungsi: ada biaya awal,
+              lalu bertambah setiap kilometer.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Kalau jarak bertambah, output harga ikut naik sesuai aturan yang
+              sama.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>Dengan fungsi, kita bisa memperkirakan biaya sebelum memesan.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa arti fungsi sebagai aturan input-output?</h3>
+            <p>Petunjuk: satu nilai masuk, satu nilai keluar.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Fungsi menerima input lalu menghasilkan output sesuai aturan
+                yang tetap.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Jika f(x) = 2x + 3, berapa f(4)?</h3>
+            <p>Petunjuk: ganti x dengan 4.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">f(4) = 2(4) + 3 = 11.</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>3. Jika f(x) = x - 5, berapa f(9)?</h3>
+            <p>Petunjuk: ganti x dengan 9.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">f(9) = 9 - 5 = 4.</div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>4. Mengapa grafik fungsi penting?</h3>
+            <p>Petunjuk: grafik memperlihatkan pola dengan cepat.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Karena grafik membantu kita melihat hubungan input-output,
+                kemiringan, dan perubahan nilai secara visual.
+              </div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci fungsi adalah membaca pola. Kalau aturannya jelas, kita bisa
+          menebak output tanpa menghitung dari nol setiap kali.
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const mInput = document.getElementById("m");
+      const bInput = document.getElementById("b");
+      const mOut = document.getElementById("mOut");
+      const bOut = document.getElementById("bOut");
+      const linePath = document.getElementById("linePath");
+      const p0 = document.getElementById("p0");
+      const p1 = document.getElementById("p1");
+      const p2 = document.getElementById("p2");
+      const pointLabel = document.getElementById("pointLabel");
+      const resultText = document.getElementById("resultText");
+      const table = document.getElementById("table");
+      const centerX = 410;
+      const centerY = 230;
+      const scale = 28;
+      function point(x, y) {
+        return { x: centerX + x * scale, y: centerY - y * scale };
+      }
+      function drawLine(m, b) {
+        const xMin = -6,
+          xMax = 6;
+        const yMin = m * xMin + b;
+        const yMax = m * xMax + b;
+        const pStart = point(xMin, yMin);
+        const pEnd = point(xMax, yMax);
+        linePath.setAttribute(
+          "d",
+          `M ${pStart.x} ${pStart.y} L ${pEnd.x} ${pEnd.y}`,
+        );
+        const xs = [-2, 0, 2];
+        const pts = xs.map((x) => ({ x, y: m * x + b }));
+        [p0, p1, p2].forEach((el, i) => {
+          const p = point(pts[i].x, pts[i].y);
+          el.setAttribute("cx", p.x);
+          el.setAttribute("cy", p.y);
+        });
+        const labelPoint = point(2, m * 2 + b);
+        pointLabel.setAttribute("x", (labelPoint.x + 8).toFixed(1));
+        pointLabel.setAttribute("y", (labelPoint.y - 8).toFixed(1));
+        pointLabel.textContent = `f(2) = ${(m * 2 + b).toFixed(1)}`;
+        table.innerHTML = xs
+          .map(
+            (x) =>
+              `<div class="cell"><strong>x=${x}</strong>y=${(m * x + b).toFixed(1)}</div>`,
+          )
+          .join("");
+      }
+      function update() {
+        const m = Number(mInput.value);
+        const b = Number(bInput.value);
+        mOut.textContent = m.toFixed(1);
+        bOut.textContent = b.toFixed(1);
+        resultText.textContent = `f(x) = ${m.toFixed(1)}x + ${b.toFixed(1)}`;
+        drawLine(m, b);
+      }
+      mInput.addEventListener("input", update);
+      bInput.addEventListener("input", update);
+      update();
+    </script>
+  </body>
+</html>

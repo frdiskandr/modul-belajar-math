@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Persamaan Diferensial - Belajar Math Visual</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #ffffff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 78ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #eff6ff 0%, #fff 50%, #f8fafc 100%);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .mini {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
+      <section class="hero">
+        <div class="eyebrow">
+          <span></span> Modul 11 · Persamaan Diferensial
+        </div>
+        <h1>
+          Persamaan diferensial memodelkan perubahan yang bergantung pada
+          kondisi sekarang.
+        </h1>
+        <p class="lead">
+          Kita pakai model pertumbuhan sederhana: semakin besar nilainya,
+          semakin cepat nilainya bertambah. Ini sering dipakai pada populasi,
+          bunga majemuk, dan pendinginan.
+        </p>
+        <div class="grid">
+          <div class="panel">
+            <h2>Cara berpikirnya</h2>
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <p>Lihat bagaimana perubahan bergantung pada nilai sekarang.</p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>Tuliskan laju perubahan sebagai persamaan.</p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>Bayangkan hasilnya berubah terus terhadap waktu.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Rumus inti</h2>
+            <div class="formulas">
+              <div class="formula-card">
+                <strong>Model sederhana</strong>
+                <p>y' = ky</p>
+              </div>
+              <div class="formula-card">
+                <strong>Solusi</strong>
+                <p>y(t) = y₀e^{kt}</p>
+              </div>
+              <div class="formula-card">
+                <strong>Makna</strong>
+                <p>
+                  nilai yang lebih besar menghasilkan pertumbuhan yang lebih
+                  cepat.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Simulasi interaktif: pertumbuhan populasi</h2>
+        <p>
+          Geser laju pertumbuhan dan nilai awal untuk melihat kurva berubah.
+        </p>
+        <div class="lab">
+          <div class="lab-visual">
+            <div class="lab-title">
+              <strong>Kurva pertumbuhan</strong
+              ><span class="badge">eksponensial</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Simulasi persamaan diferensial"
+            >
+              <defs>
+                <marker
+                  id="arrowBlue"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="8"
+                  refY="5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" fill="#2563eb" />
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="820" height="460" fill="#fff" />
+              <g stroke="#cbd5e1" stroke-width="1">
+                <line x1="410" y1="20" x2="410" y2="440" />
+                <line x1="20" y1="230" x2="800" y2="230" />
+                <line x1="290" y1="20" x2="290" y2="440" opacity=".35" />
+                <line x1="530" y1="20" x2="530" y2="440" opacity=".35" />
+              </g>
+              <g stroke="#94a3b8" stroke-width="2">
+                <line x1="410" y1="230" x2="790" y2="230" />
+                <line x1="410" y1="230" x2="410" y2="30" />
+              </g>
+              <path
+                id="curve"
+                d=""
+                stroke="#2563eb"
+                stroke-width="6"
+                fill="none"
+                marker-end="url(#arrowBlue)"
+              />
+              <circle id="dot" cx="0" cy="0" r="7" fill="#22c55e" />
+              <text
+                id="dotLabel"
+                x="0"
+                y="0"
+                fill="#166534"
+                font-size="16"
+                font-weight="700"
+              ></text>
+              <text
+                x="778"
+                y="220"
+                fill="#475569"
+                font-size="16"
+                font-weight="700"
+              >
+                t
+              </text>
+              <text
+                x="420"
+                y="45"
+                fill="#475569"
+                font-size="16"
+                font-weight="700"
+              >
+                y
+              </text>
+              <text
+                x="420"
+                y="248"
+                fill="#475569"
+                font-size="16"
+                font-weight="700"
+              >
+                O
+              </text>
+            </svg>
+            <p style="margin-top: 12px">
+              Hijau = nilai pada waktu yang dipilih.
+            </p>
+          </div>
+          <div class="lab-controls">
+            <div class="control">
+              <label for="k">Laju k <span id="kOut">0.30</span></label
+              ><input
+                id="k"
+                type="range"
+                min="-0.2"
+                max="0.6"
+                step="0.05"
+                value="0.3"
+              />
+            </div>
+            <div class="control">
+              <label for="y0">Nilai awal y₀ <span id="y0Out">10</span></label
+              ><input
+                id="y0"
+                type="range"
+                min="2"
+                max="20"
+                step="1"
+                value="10"
+              />
+            </div>
+            <div class="control">
+              <label for="t">Waktu t <span id="tOut">4</span></label
+              ><input
+                id="t"
+                type="range"
+                min="0"
+                max="10"
+                step="0.5"
+                value="4"
+              />
+            </div>
+            <div class="result">
+              <strong>Nilai saat ini</strong>
+              <div id="resultText">y(4.0) = 33.20</div>
+            </div>
+            <div class="mini">
+              <span class="pill">pertumbuhan</span
+              ><span class="pill">laju berubah</span
+              ><span class="pill">waktu</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Contoh pragmatis</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Populasi bakteri bisa tumbuh mengikuti pola yang bergantung pada
+              jumlah bakteri saat ini.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Bunga majemuk juga memakai ide yang sama: nilai sekarang
+              memengaruhi pertumbuhan berikutnya.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>
+              Persamaan diferensial adalah bahasa matematika untuk perubahan
+              yang terus terjadi.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Latihan Soal</h2>
+        <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <h3>1. Apa yang dimodelkan oleh y' = ky?</h3>
+            <p>Petunjuk: laju perubahan sebanding dengan nilai sekarang.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Itu memodelkan keadaan yang berubah dengan laju sebanding dengan
+                nilai saat ini, seperti pertumbuhan atau peluruhan.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Jika k positif, apa yang terjadi?</h3>
+            <p>Petunjuk: pikirkan pertumbuhan.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Nilainya cenderung bertambah atau tumbuh.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>
+              3. Jika y₀ = 10 dan k = 0.3, apakah hasilnya bertambah cepat atau
+              lambat?
+            </h3>
+            <p>Petunjuk: k positif cukup besar.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Hasilnya bertambah cukup cepat karena laju pertumbuhannya
+                positif.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>4. Mengapa model ini berguna di dunia nyata?</h3>
+            <p>Petunjuk: perubahan yang berulang.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Karena banyak fenomena nyata berubah terus-menerus dan bisa
+                dijelaskan dengan laju perubahan.
+              </div>
+            </details>
+          </article>
+        </div>
+        <div class="note">
+          Kunci persamaan diferensial adalah memahami hubungan antara keadaan
+          sekarang dan perubahan berikutnya.
+        </div>
+      </section>
+    </main>
+    <script>
+      const kInput = document.getElementById("k");
+      const y0Input = document.getElementById("y0");
+      const tInput = document.getElementById("t");
+      const kOut = document.getElementById("kOut");
+      const y0Out = document.getElementById("y0Out");
+      const tOut = document.getElementById("tOut");
+      const resultText = document.getElementById("resultText");
+      const curve = document.getElementById("curve");
+      const dot = document.getElementById("dot");
+      const dotLabel = document.getElementById("dotLabel");
+      const centerX = 410,
+        centerY = 230,
+        scale = 22;
+      function p(x, y) {
+        return { x: centerX + x * scale, y: centerY - y * scale };
+      }
+      function y(t, k, y0) {
+        return y0 * Math.exp(k * t);
+      }
+      function draw() {
+        const k = Number(kInput.value),
+          y0 = Number(y0Input.value),
+          t = Number(tInput.value);
+        const yt = y(t, k, y0);
+        kOut.textContent = k.toFixed(2);
+        y0Out.textContent = y0.toFixed(0);
+        tOut.textContent = t.toFixed(1);
+        resultText.textContent = `y(${t.toFixed(1)}) = ${yt.toFixed(2)}`;
+        let path = "";
+        for (let tt = 0; tt <= 10; tt += 0.1) {
+          const yy = y(tt, k, y0);
+          const pt = p(tt, yy / 2);
+          path += path === "" ? `M ${pt.x} ${pt.y}` : ` L ${pt.x} ${pt.y}`;
+        }
+        curve.setAttribute("d", path);
+        const pt = p(t, yt / 2);
+        dot.setAttribute("cx", pt.x);
+        dot.setAttribute("cy", pt.y);
+        dotLabel.setAttribute("x", (pt.x + 8).toFixed(1));
+        dotLabel.setAttribute("y", (pt.y - 8).toFixed(1));
+        dotLabel.textContent = `(${t.toFixed(1)}, ${yt.toFixed(1)})`;
+      }
+      [kInput, y0Input, tInput].forEach((el) =>
+        el.addEventListener("input", draw),
+      );
+      draw();
+    </script>
+  </body>
+</html>
