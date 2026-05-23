@@ -5,81 +5,547 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Relativitas - Belajar Math Visual</title>
     <style>
-      :root{--blue:#2563eb;--green:#22c55e;--amber:#f59e0b;--text:#0f172a;--muted:#334155;--border:#e2e8f0;--soft:#f8fafc;--shadow:0 18px 40px rgba(15,23,42,.08)}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(37,99,235,.12),transparent 28%),radial-gradient(circle at top right,rgba(34,197,94,.12),transparent 24%),linear-gradient(180deg,#f8fbff 0%,#fff 36%,#f8fafc 100%);min-height:100vh}a{color:inherit;text-decoration:none}.page{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:28px 0 56px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.back{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 10px 24px rgba(15,23,42,.05)}.hero,.section{border:1px solid var(--border);border-radius:28px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);backdrop-filter:blur(12px)}.hero{padding:30px}.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(37,99,235,.08);color:var(--muted);font-weight:700}.eyebrow span{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--blue),var(--green))}h1{margin:14px 0 12px;font-size:clamp(2.2rem,4vw,3.9rem);line-height:1.05;letter-spacing:-.04em}p{color:var(--muted);line-height:1.7;margin:0}.lead{max-width:80ch}.grid{display:grid;grid-template-columns:1fr .98fr;gap:18px;margin-top:22px}.panel{padding:20px;border-radius:22px;border:1px solid var(--border);background:var(--soft)}.panel h2,.section h2{margin:0 0 12px;font-size:1.35rem}.steps,.formulas{display:grid;gap:12px}.step,.formula-card,.exercise{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--border)}.step{display:flex;gap:12px;align-items:start}.num{width:34px;height:34px;flex:0 0 auto;display:grid;place-items:center;border-radius:12px;color:#fff;font-weight:700;background:linear-gradient(135deg,var(--blue),#1d4ed8)}.formula-card strong{display:block;margin-bottom:8px}.section{margin-top:22px;padding:28px}.lab{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;margin-top:18px}.lab-visual,.lab-controls{border-radius:24px;border:1px solid var(--border);background:#fff}.lab-visual{padding:18px}.lab-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.1);color:#166534;font-size:.85rem;font-weight:700}.scene{width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#eff6ff 0%,#fff 50%,#dbeafe 50%,#eff6ff 100%);border:1px solid rgba(226,232,240,.9)}.lab-controls{padding:18px}.control{margin-bottom:14px}.control label{display:flex;justify-content:space-between;gap:12px;font-weight:700;color:var(--text);margin-bottom:8px}input[type="range"]{width:100%}.result{margin-top:16px;padding:14px;border-radius:18px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.14)}.result strong{display:block;margin-bottom:4px}.exercise-grid{display:grid;gap:14px;margin-top:18px}.exercise h3{margin:0 0 10px;font-size:1.06rem}details{margin-top:12px;padding:12px 14px;border-radius:16px;background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15)}summary{cursor:pointer;font-weight:700;color:var(--blue)}.answer{margin-top:10px;color:var(--muted)}.note{margin-top:18px;padding:14px 16px;border-radius:18px;border-left:5px solid var(--green);background:rgba(34,197,94,.08);color:var(--muted)}.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.pill{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:.84rem}@media (max-width:920px){.grid,.lab{grid-template-columns:1fr}}@media (max-width:640px){.page{width:min(100% - 20px,1120px);padding-top:18px}.hero,.section{padding:22px;border-radius:24px}}
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --text: #0f172a;
+        --muted: #334155;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #fff 36%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      }
+      .hero,
+      .section {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero {
+        padding: 30px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+      h1 {
+        margin: 14px 0 12px;
+        font-size: clamp(2.2rem, 4vw, 3.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+      .lead {
+        max-width: 80ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 0.98fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--soft);
+      }
+      .panel h2,
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      .steps,
+      .formulas {
+        display: grid;
+        gap: 12px;
+      }
+      .step,
+      .formula-card,
+      .exercise {
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .num {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+      }
+      .formula-card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-top: 22px;
+        padding: 28px;
+      }
+      .lab {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .lab-visual,
+      .lab-controls {
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .lab-visual {
+        padding: 18px;
+      }
+      .lab-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .scene {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          #eff6ff 0%,
+          #fff 50%,
+          #dbeafe 50%,
+          #eff6ff 100%
+        );
+        border: 1px solid rgba(226, 232, 240, 0.9);
+      }
+      .lab-controls {
+        padding: 18px;
+      }
+      .control {
+        margin-bottom: 14px;
+      }
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.14);
+      }
+      .result strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .exercise-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .exercise h3 {
+        margin: 0 0 10px;
+        font-size: 1.06rem;
+      }
+      details {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.06);
+        border: 1px solid rgba(37, 99, 235, 0.15);
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--blue);
+      }
+      .answer {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border-left: 5px solid var(--green);
+        background: rgba(34, 197, 94, 0.08);
+        color: var(--muted);
+      }
+      .status {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      @media (max-width: 920px) {
+        .grid,
+        .lab {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+      }
     </style>
   </head>
   <body>
     <main class="page">
-      <div class="topbar"><a class="back" href="../index.html">← Kembali ke halaman utama</a></div>
+      <div class="topbar">
+        <a class="back" href="../index.html">← Kembali ke halaman utama</a>
+      </div>
       <section class="hero">
         <div class="eyebrow"><span></span> Modul 20 · Relativitas</div>
-        <h1>Relativitas menjelaskan bahwa pengukuran waktu dan jarak bisa bergantung pada keadaan gerak.</h1>
-        <p class="lead">Untuk SMP, cukup dipahami sebagai ide bahwa benda yang bergerak sangat cepat dapat membuat waktu tampak berjalan lebih lambat dibanding pengamat diam. Ini membuka cara pandang baru tentang ruang dan waktu.</p>
+        <h1>
+          Relativitas menjelaskan bahwa pengukuran waktu dan jarak bisa
+          bergantung pada keadaan gerak.
+        </h1>
+        <p class="lead">
+          Untuk SMP, cukup dipahami sebagai ide bahwa benda yang bergerak sangat
+          cepat dapat membuat waktu tampak berjalan lebih lambat dibanding
+          pengamat diam. Ini membuka cara pandang baru tentang ruang dan waktu.
+        </p>
         <div class="grid">
           <div class="panel">
             <h2>Cara berpikirnya</h2>
             <div class="steps">
-              <div class="step"><div class="num">1</div><p>Pilih dua pengamat yang melihat kejadian sama.</p></div>
-              <div class="step"><div class="num">2</div><p>Bandingkan waktu yang mereka ukur saat benda bergerak cepat.</p></div>
-              <div class="step"><div class="num">3</div><p>Lihat bahwa kecepatan sangat tinggi membuat perbedaan pengukuran lebih terasa.</p></div>
+              <div class="step">
+                <div class="num">1</div>
+                <p>Pilih dua pengamat yang melihat kejadian sama.</p>
+              </div>
+              <div class="step">
+                <div class="num">2</div>
+                <p>
+                  Bandingkan waktu yang mereka ukur saat benda bergerak cepat.
+                </p>
+              </div>
+              <div class="step">
+                <div class="num">3</div>
+                <p>
+                  Lihat bahwa kecepatan sangat tinggi membuat perbedaan
+                  pengukuran lebih terasa.
+                </p>
+              </div>
             </div>
           </div>
           <div class="panel">
             <h2>Rumus inti</h2>
             <div class="formulas">
-              <div class="formula-card"><strong>Faktor waktu</strong><p>t' = t / √(1 - v²/c²)</p></div>
-              <div class="formula-card"><strong>Makna</strong><p>Semakin dekat v ke c, efek relativitas makin besar.</p></div>
-              <div class="formula-card"><strong>Catatan</strong><p>Di modul ini kita pakai ilustrasi sederhana, bukan perhitungan penuh.</p></div>
+              <div class="formula-card">
+                <strong>Faktor waktu</strong>
+                <p>t' = t / √(1 - v²/c²)</p>
+              </div>
+              <div class="formula-card">
+                <strong>Makna</strong>
+                <p>Semakin dekat v ke c, efek relativitas makin besar.</p>
+              </div>
+              <div class="formula-card">
+                <strong>Catatan</strong>
+                <p>
+                  Di modul ini kita pakai ilustrasi sederhana, bukan perhitungan
+                  penuh.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <section class="section">
         <h2>Simulasi interaktif: dilatasi waktu sederhana</h2>
-        <p>Geser kecepatan untuk melihat waktu pada pengamat bergerak dibandingkan waktu diam.</p>
+        <p>
+          Geser kecepatan untuk melihat waktu pada pengamat bergerak
+          dibandingkan waktu diam.
+        </p>
         <div class="lab">
           <div class="lab-visual">
-            <div class="lab-title"><strong>Dua jam</strong><span class="badge">Waktu relatif</span></div>
-            <svg class="scene" viewBox="0 0 820 460" role="img" aria-label="Simulasi relativitas">
-              <rect width="820" height="460" fill="#fff"/>
-              <rect x="0" y="340" width="820" height="120" fill="#dbeafe"/>
-              <circle cx="220" cy="220" r="64" fill="#2563eb" opacity=".92"/>
-              <circle cx="600" cy="220" r="64" fill="#22c55e" opacity=".92"/>
-              <text x="220" y="214" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">Diam</text>
-              <text x="600" y="214" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">Berkeliling</text>
-              <text id="movingText" x="600" y="252" text-anchor="middle" fill="#fff" font-size="24" font-weight="700"></text>
-              <text id="restText" x="220" y="252" text-anchor="middle" fill="#fff" font-size="24" font-weight="700"></text>
+            <div class="lab-title">
+              <strong>Dua jam</strong><span class="badge">Waktu relatif</span>
+            </div>
+            <svg
+              class="scene"
+              viewBox="0 0 820 460"
+              role="img"
+              aria-label="Simulasi relativitas"
+            >
+              <rect width="820" height="460" fill="#fff" />
+              <rect x="0" y="340" width="820" height="120" fill="#dbeafe" />
+              <circle cx="220" cy="220" r="64" fill="#2563eb" opacity=".92" />
+              <circle cx="600" cy="220" r="64" fill="#22c55e" opacity=".92" />
+              <text
+                x="220"
+                y="214"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="18"
+                font-weight="700"
+              >
+                Diam
+              </text>
+              <text
+                x="600"
+                y="214"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="18"
+                font-weight="700"
+              >
+                Berkeliling
+              </text>
+              <text
+                id="movingText"
+                x="600"
+                y="252"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="24"
+                font-weight="700"
+              ></text>
+              <text
+                id="restText"
+                x="220"
+                y="252"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="24"
+                font-weight="700"
+              ></text>
             </svg>
-            <div class="status"><span class="pill" id="gammaText"></span><span class="pill" id="timeText"></span></div>
+            <div class="status">
+              <span class="pill" id="gammaText"></span
+              ><span class="pill" id="timeText"></span>
+            </div>
           </div>
           <div class="lab-controls">
-            <div class="control"><label for="v">Kecepatan v/c <span id="vOut">0.50</span></label><input id="v" type="range" min="0" max="0.95" step="0.01" value="0.5" /></div>
-            <div class="control"><label for="t">Waktu diam t <span id="tOut">10</span></label><input id="t" type="range" min="2" max="20" step="1" value="10" /></div>
-            <div class="result"><strong>Hasil waktu bergerak</strong><div id="resultText">t' = 11.55</div></div>
-            <div class="status"><span class="pill">c = 1</span><span class="pill">waktu melambat</span><span class="pill">gerak cepat</span></div>
+            <div class="control">
+              <label for="v">Kecepatan v/c <span id="vOut">0.50</span></label
+              ><input
+                id="v"
+                type="range"
+                min="0"
+                max="0.95"
+                step="0.01"
+                value="0.5"
+              />
+            </div>
+            <div class="control">
+              <label for="t">Waktu diam t <span id="tOut">10</span></label
+              ><input
+                id="t"
+                type="range"
+                min="2"
+                max="20"
+                step="1"
+                value="10"
+              />
+            </div>
+            <div class="result">
+              <strong>Hasil waktu bergerak</strong>
+              <div id="resultText">t' = 11.55</div>
+            </div>
+            <div class="status">
+              <span class="pill">c = 1</span
+              ><span class="pill">waktu melambat</span
+              ><span class="pill">gerak cepat</span>
+            </div>
           </div>
         </div>
       </section>
       <section class="section">
         <h2>Contoh pragmatis</h2>
         <div class="steps">
-          <div class="step"><div class="num">1</div><p>Relativitas membantu kita memahami pesawat luar angkasa yang bergerak sangat cepat.</p></div>
-          <div class="step"><div class="num">2</div><p>Konsep ini juga penting untuk navigasi satelit dan sistem waktu presisi.</p></div>
-          <div class="step"><div class="num">3</div><p>Intinya, pengamat yang berbeda bisa mengukur waktu dengan hasil yang berbeda.</p></div>
+          <div class="step">
+            <div class="num">1</div>
+            <p>
+              Relativitas membantu kita memahami pesawat luar angkasa yang
+              bergerak sangat cepat.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>
+              Konsep ini juga penting untuk navigasi satelit dan sistem waktu
+              presisi.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>
+              Intinya, pengamat yang berbeda bisa mengukur waktu dengan hasil
+              yang berbeda.
+            </p>
+          </div>
         </div>
       </section>
       <section class="section">
         <h2>Latihan Soal</h2>
         <p>Coba kerjakan dulu, lalu buka jawaban untuk mengecek hasilmu.</p>
         <div class="exercise-grid">
-          <article class="exercise"><h3>1. Apa ide utama relativitas?</h3><p>Petunjuk: pengukuran bergantung pada gerak.</p><details><summary>Lihat jawaban</summary><div class="answer">Relativitas menjelaskan bahwa waktu dan jarak bisa tampak berbeda tergantung keadaan geraknya.</div></details></article>
-          <article class="exercise"><h3>2. Apa yang terjadi saat kecepatan mendekati cahaya?</h3><p>Petunjuk: efek relativitas makin besar.</p><details><summary>Lihat jawaban</summary><div class="answer">Efek relativitas semakin jelas, termasuk dilatasi waktu.</div></details></article>
+          <article class="exercise">
+            <h3>1. Apa ide utama relativitas?</h3>
+            <p>Petunjuk: pengukuran bergantung pada gerak.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Relativitas menjelaskan bahwa waktu dan jarak bisa tampak
+                berbeda tergantung keadaan geraknya.
+              </div>
+            </details>
+          </article>
+          <article class="exercise">
+            <h3>2. Apa yang terjadi saat kecepatan mendekati cahaya?</h3>
+            <p>Petunjuk: efek relativitas makin besar.</p>
+            <details>
+              <summary>Lihat jawaban</summary>
+              <div class="answer">
+                Efek relativitas semakin jelas, termasuk dilatasi waktu.
+              </div>
+            </details>
+          </article>
         </div>
-        <div class="note">Kunci relativitas adalah memahami bahwa pengukuran bisa berbeda untuk pengamat yang berbeda.</div>
+        <div class="note">
+          Kunci relativitas adalah memahami bahwa pengukuran bisa berbeda untuk
+          pengamat yang berbeda.
+        </div>
       </section>
     </main>
     <script>
-      const vInput=document.getElementById('v');const tInput=document.getElementById('t');const vOut=document.getElementById('vOut');const tOut=document.getElementById('tOut');const resultText=document.getElementById('resultText');const gammaText=document.getElementById('gammaText');const timeText=document.getElementById('timeText');const movingText=document.getElementById('movingText');const restText=document.getElementById('restText');function update(){const beta=Number(vInput.value),t=Number(tInput.value),gamma=1/Math.sqrt(1-beta*beta),moving=t*gamma;vOut.textContent=beta.toFixed(2);tOut.textContent=t;resultText.textContent=`t' = ${moving.toFixed(2)}`;gammaText.textContent=`γ = ${gamma.toFixed(2)}`;timeText.textContent=`Waktu bergerak = ${moving.toFixed(2)}`;movingText.textContent=moving.toFixed(2);restText.textContent=t.toFixed(2);}vInput.addEventListener('input',update);tInput.addEventListener('input',update);update();
+      const vInput = document.getElementById("v");
+      const tInput = document.getElementById("t");
+      const vOut = document.getElementById("vOut");
+      const tOut = document.getElementById("tOut");
+      const resultText = document.getElementById("resultText");
+      const gammaText = document.getElementById("gammaText");
+      const timeText = document.getElementById("timeText");
+      const movingText = document.getElementById("movingText");
+      const restText = document.getElementById("restText");
+      function update() {
+        const beta = Number(vInput.value),
+          t = Number(tInput.value),
+          gamma = 1 / Math.sqrt(1 - beta * beta),
+          moving = t * gamma;
+        vOut.textContent = beta.toFixed(2);
+        tOut.textContent = t;
+        resultText.textContent = `t' = ${moving.toFixed(2)}`;
+        gammaText.textContent = `γ = ${gamma.toFixed(2)}`;
+        timeText.textContent = `Waktu bergerak = ${moving.toFixed(2)}`;
+        movingText.textContent = moving.toFixed(2);
+        restText.textContent = t.toFixed(2);
+      }
+      vInput.addEventListener("input", update);
+      tInput.addEventListener("input", update);
+      update();
     </script>
   </body>
 </html>
