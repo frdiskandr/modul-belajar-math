@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belajar Math Visual</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --section-bg: #f8fafc;
+        --card-bg: rgba(255, 255, 255, 0.88);
+        --border: #e2e8f0;
+        --text: #0f172a;
+        --muted: #334155;
+        --blue: #2563eb;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --shadow: 0 18px 50px rgba(15, 23, 42, 0.09);
+        --radius: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.12),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(34, 197, 94, 0.12),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #f8fbff 0%, #ffffff 34%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          rgba(37, 99, 235, 0.08),
+          rgba(34, 197, 94, 0.08)
+        );
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 32px;
+        padding: 34px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        pointer-events: none;
+        opacity: 0.85;
+      }
+
+      .hero::before {
+        width: 180px;
+        height: 180px;
+        right: -40px;
+        top: -55px;
+        background: rgba(37, 99, 235, 0.14);
+      }
+
+      .hero::after {
+        width: 120px;
+        height: 120px;
+        right: 120px;
+        bottom: -45px;
+        background: rgba(34, 197, 94, 0.16);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.05);
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .eyebrow span {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+        box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.1);
+      }
+
+      .hero-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 26px;
+        align-items: center;
+        margin-top: 18px;
+        z-index: 1;
+      }
+
+      h1 {
+        margin: 14px 0 14px;
+        font-size: clamp(2.3rem, 4.6vw, 4.6rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      .lead {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--muted);
+        max-width: 62ch;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 14px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          border-color 0.18s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+        box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+      }
+
+      .btn-secondary {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.75);
+        border-color: var(--border);
+      }
+
+      .hero-panel {
+        padding: 22px;
+        background: rgba(255, 255, 255, 0.68);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        border-radius: 24px;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+      }
+
+      .panel-title {
+        margin: 0 0 14px;
+        font-size: 1.05rem;
+        color: var(--muted);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .stat {
+        padding: 18px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.5rem;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .stat p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+        font-size: 0.95rem;
+      }
+
+      .section {
+        margin-top: 28px;
+        padding: 28px;
+        background: rgba(248, 250, 252, 0.88);
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 28px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+      }
+
+      .section-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: end;
+        margin-bottom: 22px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: clamp(1.45rem, 2vw, 2rem);
+      }
+
+      .section-header p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+        max-width: 68ch;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-size: 0.92rem;
+        color: var(--muted);
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+
+      .chip.active {
+        color: var(--blue);
+        border-color: rgba(37, 99, 235, 0.2);
+        background: rgba(37, 99, 235, 0.08);
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: var(--card-bg);
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease;
+        backdrop-filter: blur(12px);
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.1);
+        border-color: rgba(37, 99, 235, 0.25);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 7px;
+        background: linear-gradient(
+          90deg,
+          var(--blue),
+          var(--green),
+          var(--amber)
+        );
+      }
+
+      .card-body {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        flex: 1;
+      }
+
+      .card-top {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-size: 1.35rem;
+        background: linear-gradient(
+          135deg,
+          rgba(37, 99, 235, 0.12),
+          rgba(34, 197, 94, 0.12)
+        );
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        flex: 0 0 auto;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.1);
+        color: #166534;
+        font-size: 0.82rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .badge::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--green);
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        line-height: 1.35;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 0.96rem;
+      }
+
+      .card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      .meta-pill {
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-top: 6px;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--blue);
+        font-weight: 700;
+      }
+
+      .arrow {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(135deg, var(--blue), #1d4ed8);
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.24);
+      }
+
+      .footer-note {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 960px) {
+        .hero-grid,
+        .module-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1180px);
+          padding-top: 18px;
+        }
+
+        .hero,
+        .section {
+          padding: 22px;
+          border-radius: 24px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="eyebrow"><span></span> Modul belajar visual untuk SMP</div>
+        <div class="hero-grid">
+          <div>
+            <h1>
+              Belajar matematika dengan cara yang lebih jelas, visual, dan
+              bertahap.
+            </h1>
+            <p class="lead">
+              Halaman ini menjadi pintu utama untuk kumpulan modul belajar.
+              Setiap kartu membawa satu materi, penjelasan sederhana, dan visual
+              yang membantu siswa memahami konsep sebelum masuk ke rumus.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#modul">Lihat semua modul</a>
+              <a class="btn btn-secondary" href="#unggulan"
+                >Apa yang dipelajari?</a
+              >
+            </div>
+          </div>
+
+          <aside class="hero-panel">
+            <p class="panel-title">Ringkasan ruang belajar</p>
+            <div class="stats">
+              <div class="stat">
+                <strong>Visual</strong>
+                <p>
+                  Gambar, diagram, dan simulasi membantu konsep terasa nyata.
+                </p>
+              </div>
+              <div class="stat">
+                <strong>SMP</strong>
+                <p>
+                  Bahasa dijaga sederhana agar mudah diikuti anak sekolah
+                  menengah pertama.
+                </p>
+              </div>
+              <div class="stat">
+                <strong>Rapi</strong>
+                <p>
+                  Setiap materi disiapkan dalam folder sendiri supaya mudah
+                  dikembangkan.
+                </p>
+              </div>
+              <div class="stat">
+                <strong>Hub</strong>
+                <p>
+                  Root `index.html` menjadi pusat navigasi ke semua modul yang
+                  ada.
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="modul">
+        <div class="section-header">
+          <div>
+            <h2>Daftar Modul</h2>
+            <p>
+              Kartu di bawah ini adalah daftar materi yang bisa dibuka langsung
+              dari halaman utama. Tambahkan modul baru dengan pola folder yang
+              sama agar struktur tetap konsisten.
+            </p>
+          </div>
+          <div class="filters" aria-label="Filter modul">
+            <span class="chip active">Semua</span>
+            <span class="chip">Geometri</span>
+            <span class="chip">Trigonometri</span>
+            <span class="chip">Aljabar</span>
+          </div>
+        </div>
+
+        <div class="module-grid">
+          <article class="card" id="unggulan">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">📐</div>
+                <div class="badge">Siap dibuka</div>
+              </div>
+              <div>
+                <h3>Geometri dan Trigonometri</h3>
+                <p>
+                  Modul visual untuk mengenal bentuk, sudut, lingkaran, sin,
+                  cos, dan bagaimana semua itu saling terhubung melalui gambar
+                  dan gerak.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Visual interaktif</span>
+                <span class="meta-pill">Bahasa sederhana</span>
+                <span class="meta-pill">Contoh bertahap</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Buka modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">🔢</div>
+                <div class="badge">Rencana berikutnya</div>
+              </div>
+              <div>
+                <h3>Aljabar Dasar</h3>
+                <p>
+                  Belajar variabel, bentuk sederhana, dan cara berpikir aljabar
+                  dengan contoh yang dekat dengan kehidupan sehari-hari.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Konsep inti</span>
+                <span class="meta-pill">Latihan ringkas</span>
+                <span class="meta-pill">Rumus masuk akal</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Siapkan modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-body">
+              <div class="card-top">
+                <div class="icon">🧭</div>
+                <div class="badge">Rencana berikutnya</div>
+              </div>
+              <div>
+                <h3>Bangun Datar</h3>
+                <p>
+                  Menjelaskan persegi, persegi panjang, segitiga, dan lingkaran
+                  lewat bentuk yang mudah dilihat sebelum masuk ke luas dan
+                  keliling.
+                </p>
+              </div>
+              <div class="card-meta">
+                <span class="meta-pill">Gambar jelas</span>
+                <span class="meta-pill">Sisi dan sudut</span>
+                <span class="meta-pill">Langkah ringan</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-link"
+                  >Siapkan modul <span class="arrow">→</span></span
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="footer-note">
+          Saat modul baru dibuat, simpan di folder sesuai nama materi, lalu
+          hubungkan dari halaman ini supaya root `index.html` tetap menjadi
+          pusat navigasi seluruh pembelajaran.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
